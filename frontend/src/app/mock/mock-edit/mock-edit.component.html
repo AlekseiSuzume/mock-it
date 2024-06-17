@@ -1,0 +1,17 @@
+<div class="edit-form-container">
+  <form class="edit-form" [formGroup]="fbForm" (ngSubmit)="edit()">
+    <label for="name">Name:</label>
+    <input type="text" formControlName="name">
+
+    <label for="url">Url:</label>
+    <input type="text" formControlName="url">
+
+    <label for="body">Body:</label>
+    <textarea id="body" formControlName="body"></textarea>
+
+    <label for="status_code">Status code:</label>
+    <input type="text" formControlName="status_code">
+
+    <button mat-button type="submit">Submit</button>
+  </form>
+</div>

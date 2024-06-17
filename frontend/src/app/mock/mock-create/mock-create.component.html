@@ -1,0 +1,17 @@
+<div class="create-form-container">
+  <form class="create-form" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <label for="url">URL:</label>
+    <input type="text" id="url" formControlName="url">
+
+    <label for="body">Body:</label>
+    <textarea id="body" formControlName="body"></textarea>
+
+    <label for="status_code">Status Code:</label>
+    <input type="text" id="status_code" formControlName="status_code">
+
+    <button mat-button type='submit' [disabled]="!addForm.valid">Add Mock</button>
+  </form>
+</div>

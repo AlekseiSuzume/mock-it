@@ -1,0 +1,13 @@
+.edit-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 10px;
+}

@@ -28,3 +28,17 @@ services:
       POSTGRES_DB: db
     ports:
       - "25000:5432"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    command: npm run start
+    volumes:
+      - ./frontend:/frontend/src/app
+      - /frontend/src/app/node_modules
+    ports:
+      - "30000:30000"
+    depends_on:
+      - backend
