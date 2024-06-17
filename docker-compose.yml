@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  # NestJS Mock-It-Easy backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      # Build development stage from dockerfile
+      target: development
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    # dev mode
+    command: npm run start:docker
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/db
+    ports:
+      - "20000:20000"
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "25000:5432"
