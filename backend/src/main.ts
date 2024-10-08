@@ -2,11 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule, { cors: true });
+	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
+		cors: true
+	});
+	// const app = await NestFactory.create(AppModule, { cors: true });
 
-	app.setGlobalPrefix('api');
+	// app.setGlobalPrefix('api');
 	app.enableVersioning({
 		type: VersioningType.URI
 	});
@@ -23,4 +27,5 @@ async function bootstrap() {
 
 	await app.listen(20000);
 }
+
 bootstrap();
