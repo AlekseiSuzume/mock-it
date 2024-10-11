@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { MockService } from './mock.service';
 import { MockDto } from './dto/mock.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Mock } from '@prisma/client';
 
 @Controller('mocks')
 @ApiTags('Mocks')
@@ -11,32 +10,32 @@ export class MockController {
 
 	@Post()
 	@ApiOperation({ summary: 'Create a new mock' })
-	async create(@Body() mockDto: MockDto): Promise<Mock> {
+	async create(@Body() mockDto: MockDto): Promise<IMock> {
 		return await this.mockService.create(mockDto);
 	}
 
 	@Get()
 	@ApiOperation({ summary: 'Get all mocks' })
 	@ApiOkResponse({ isArray: true })
-	async getAll(): Promise<Mock[]> {
+	async getAll(): Promise<IMock[]> {
 		return await this.mockService.getAll();
 	}
 
 	@Get(':id')
 	@ApiOperation({ summary: 'Get mock by id' })
-	async getOne(@Param('id') id: string) {
+	async getOne(@Param('id') id: string): Promise<IMock> {
 		return this.mockService.getOne(+id);
 	}
 
 	@Patch(':id')
 	@ApiOperation({ summary: 'Update mock by id' })
-	async update(@Param('id') id: string, @Body() mockDto: MockDto) {
+	async update(@Param('id') id: string, @Body() mockDto: MockDto): Promise<IMock> {
 		return this.mockService.update(+id, mockDto);
 	}
 
 	@Delete(':id')
 	@ApiOperation({ summary: 'Delete mock by id' })
-	async delete(@Param('id') id: string) {
+	async delete(@Param('id') id: string): Promise<IMock> {
 		return this.mockService.delete(+id);
 	}
 }

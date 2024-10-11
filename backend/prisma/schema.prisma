@@ -8,9 +8,12 @@ datasource db {
 }
 
 model Mock {
-  id          Int    @id @default(autoincrement())
-  name        String
-  url         String @unique
-  status_code String
-  body        String
+  id            Int     @id @default(autoincrement())
+  name          String
+  url           String
+  method        String
+  body_patterns String?
+  status_code   Int
+  headers       String?
+  body          String
 }

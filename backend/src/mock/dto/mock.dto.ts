@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 
 export class MockDto {
 	@IsString()
@@ -13,7 +14,19 @@ export class MockDto {
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty()
-	status_code: string;
+	method: string;
+	@IsString()
+	@IsOptional()
+	@ApiPropertyOptional()
+	bodyPatterns: string;
+	@IsString()
+	@IsOptional()
+	@ApiPropertyOptional()
+	headers: string;
+	@IsNumber()
+	@IsNotEmpty()
+	@ApiProperty()
+	status_code: number;
 	@IsString()
 	@ApiProperty()
 	body: string;

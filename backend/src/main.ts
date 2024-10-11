@@ -1,21 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
-		cors: true
-	});
-	// const app = await NestFactory.create(AppModule, { cors: true });
+	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
-	// app.setGlobalPrefix('api');
-	app.enableVersioning({
-		type: VersioningType.URI
-	});
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-
 	const config = new DocumentBuilder()
 		.setTitle('Mock-It-Easy API')
 		.setDescription('This is the Mock-It-Easy API description')

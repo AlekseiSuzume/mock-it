@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MockModule } from './mock/mock.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { MockService } from './mock/mock.service';
 
 @Module({
 	imports: [
@@ -15,6 +16,6 @@ import { ConfigModule } from '@nestjs/config';
 		DatabaseModule
 	],
 	controllers: [AppController],
-	providers: [AppService]
+	providers: [AppService, MockService]
 })
 export class AppModule {}
