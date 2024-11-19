@@ -10,7 +10,7 @@ export class MockDto {
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty()
-	url: string;
+	endpoint: string;
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty()
@@ -30,4 +30,7 @@ export class MockDto {
 	@IsString()
 	@ApiProperty()
 	body: string;
+	@IsNotEmpty()
+	@IsNumber()
+	created_by_id: number;
 }

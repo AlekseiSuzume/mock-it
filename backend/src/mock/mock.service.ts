@@ -11,12 +11,13 @@ export class MockService {
 		return this.db.mock.create({
 			data: {
 				name: mockDto.name,
-				url: mockDto.url,
-				method: mockDto.method,
+				endpoint: mockDto.endpoint,
 				status_code: mockDto.status_code,
-				body: mockDto.body,
+				method: mockDto.method,
 				headers: mockDto.headers,
-				body_patterns: mockDto.bodyPatterns
+				body: mockDto.body,
+				body_patterns: mockDto.bodyPatterns,
+				created_by_id: mockDto.created_by_id
 			}
 		});
 	}
@@ -50,10 +51,10 @@ export class MockService {
 		});
 	}
 
-	findUrl(url: string): Promise<Mock[]> {
+	findUrl(endpoint: string): Promise<Mock[]> {
 		return this.db.mock.findMany({
 			where: {
-				url: url
+				endpoint: endpoint
 			}
 		});
 	}
