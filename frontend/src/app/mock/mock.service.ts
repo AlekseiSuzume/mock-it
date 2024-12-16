@@ -14,10 +14,10 @@ export class MockService {
   }
 
   public getMockById(id: string): Observable<IMock> {
-    return this.http.get<IMock>(`/api/mocks/` +id);
+    return this.http.get<IMock>(`api/mocks/` +id);
   }
 
   public editMock(mock: IMock): Observable<IMock> {
-    return this.http.patch<IMock>(`/api/mocks/` + mock.id, mock);
+    return this.http.patch<IMock>(`api/mocks/` + mock.id, mock);
   }
 }

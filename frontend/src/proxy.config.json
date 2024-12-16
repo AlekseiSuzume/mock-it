@@ -1,7 +1,10 @@
 {
   "/api/**": {
-    "target": "http://backend:20000",
+    "target": "http://localhost:20000",
     "secure": false,
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
   }
 }

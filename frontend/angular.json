@@ -64,11 +64,11 @@
           "configurations": {
             "production": {
               "buildTarget": "frontend:build:production",
-              "proxyConfig": "./src/proxy.config.json"
+              "proxyConfig": "src/proxy.config.json"
             },
             "development": {
               "buildTarget": "frontend:build:development",
-              "proxyConfig": "./src/proxy.config.json"
+              "proxyConfig": "src/proxy.config.json"
             }
           },
           "defaultConfiguration": "development"

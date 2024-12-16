@@ -41,10 +41,10 @@ export class MockEditComponent implements OnInit {
   }
 
   public fbForm = this._fb.group({
-    name: ['',[Validators.required]],
-    url: ['',[Validators.required]],
-    body: ['',[Validators.required]],
-    status_code: ['',[Validators.required]]
+    name: ['', [Validators.required]],
+    endpoint: ['', [Validators.required]],
+    body: ['', [Validators.required]],
+    status_code: ['', [Validators.required]]
   });
 
   ngOnInit(): void {
@@ -54,9 +54,9 @@ export class MockEditComponent implements OnInit {
           this.mock = mock;
           this.fbForm.patchValue({
             name: this.mock.name,
-            url: this.mock.url,
+            endpoint: this.mock.endpoint,
             body: this.mock.body,
-            status_code: this.mock.status_code
+            status_code: this.mock.status_code.toString()
           });
         }
       );
@@ -67,8 +67,8 @@ export class MockEditComponent implements OnInit {
     return this.fbForm.get('name') as FormControl;
   }
 
-  get url(): FormControl {
-    return this.fbForm.get('url') as FormControl;
+  get endpoint(): FormControl {
+    return this.fbForm.get('endpoint') as FormControl;
   }
 
   get body(): FormControl {
@@ -86,8 +86,11 @@ export class MockEditComponent implements OnInit {
   edit(): void {
     this.mockService.editMock({
       id: this.mock.id,
+      bodyPatterns: '',
+      headers: '',
+      method: '',
       name: this.name.value,
-      url: this.url.value,
+      endpoint: this.endpoint.value,
       body: this.body.value,
       status_code: this.status_code.value
     }).subscribe(() => this.router.navigate(['../mocks']));

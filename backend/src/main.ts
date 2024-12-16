@@ -4,9 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { ValidationPipe } from '@nestjs/common';
 
+const cors = require('cors');
+
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
-
+	app.use(cors());
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 	const config = new DocumentBuilder()
 		.setTitle('Mock-It-Easy API')

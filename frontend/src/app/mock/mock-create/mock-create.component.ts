@@ -17,10 +17,10 @@ import { MatButton } from '@angular/material/button';
 })
 export class MockCreateComponent {
   public addForm = this._fb.group({
-    name: ['',[Validators.required]],
-    url: ['',[Validators.required]],
-    body: ['',[Validators.required]],
-    status_code: ['',[Validators.required]]
+    name: ['', [Validators.required]],
+    endpoint: ['', [Validators.required]],
+    body: ['', [Validators.required]],
+    status_code: ['', [Validators.required]]
   });
 
   constructor(
@@ -34,8 +34,8 @@ export class MockCreateComponent {
     return this.addForm.get('name') as FormControl;
   }
 
-  get url(): FormControl {
-    return this.addForm.get('url') as FormControl;
+  get endpoint(): FormControl {
+    return this.addForm.get('endpoint') as FormControl;
   }
 
   get body(): FormControl {
@@ -49,8 +49,11 @@ export class MockCreateComponent {
   onSubmit() {
     if (this.addForm.valid) {
       this.mockService.addMock({
+        bodyPatterns: '',
+        headers: '',
+        method: '',
         name: this.name.value,
-        url: this.url.value,
+        endpoint: this.endpoint.value,
         body: this.body.value,
         status_code: this.status_code.value
       }).subscribe(() => this.router.navigate(['../mocks']));
