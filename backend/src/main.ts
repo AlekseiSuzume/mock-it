@@ -7,8 +7,19 @@ import { ValidationPipe } from '@nestjs/common';
 const cors = require('cors');
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
+	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
+		rawBody: true
+	});
 	app.use(cors());
+	await app.register(import('fastify-raw-body'), {
+		field: 'rawBody', // change the default request.rawBody property name
+		global: true, // add the rawBody to every request. **Default true**
+		encoding: 'utf8', // set it to false to set rawBody as a Buffer **Default utf8**
+		runFirst: true, // get the body before any preParsing hook change/uncompress it. **Default false**
+		routes: [], // array of routes, **`global`** will be ignored, wildcard routes not supported
+		jsonContentTypes: [] // array of content-types to handle as JSON. **Default ['application/json']**
+	});
+
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 	const config = new DocumentBuilder()
 		.setTitle('Mock-It-Easy API')
