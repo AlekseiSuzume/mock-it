@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { MockService } from './mock.service';
 import { MockDto } from './dto/mock.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('mocks')
 @ApiTags('Mocks')
+@UseGuards(JwtAuthGuard)
 export class MockController {
 	constructor(private readonly mockService: MockService) {}
 
