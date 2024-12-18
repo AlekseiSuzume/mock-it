@@ -1,6 +1,10 @@
 {
   "/api/**": {
-    "target": "http://localhost:20000",
+    "target" : {
+      "host": "backend",
+      "port": 20000,
+      "protocol": "http:"
+    },
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {

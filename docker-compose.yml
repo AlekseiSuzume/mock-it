@@ -9,8 +9,8 @@ services:
       # Build development stage from dockerfile
       target: development
     volumes:
-      - ./backend:/app/backend
-      - /app/backend/node_modules
+      - ./backend:/app
+      - /app/node_modules
     # dev mode
     command: npm run start:docker
     depends_on:
@@ -27,7 +27,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
     ports:
-      - "25000:5432"
+      - "22000:5432"
 
   frontend:
     build:
@@ -39,6 +39,6 @@ services:
       - ./frontend:/frontend/src/app
       - /frontend/src/app/node_modules
     ports:
-      - "30000:30000"
+      - "21000:21000"
     depends_on:
       - backend

@@ -25,12 +25,12 @@ async function bootstrap() {
 		.setTitle('Mock-It-Easy API')
 		.setDescription('This is the Mock-It-Easy API description')
 		.setVersion('0.1')
-		.addServer('http://localhost:20000')
+		.addServer('http://0.0.0.0:20000')
 		.build();
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('/docs', app, document);
 
-	await app.listen(20000);
+	await app.listen(20000, '0.0.0.0');
 }
 
 bootstrap();

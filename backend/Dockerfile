@@ -1,4 +1,4 @@
-FROM node:20.9.0 AS development
+FROM node:22.9.0 AS development
 
 WORKDIR /app
 
@@ -10,6 +10,18 @@ COPY prisma ./prisma
 RUN npm ci
 RUN npm run build
 RUN npx prisma generate
-RUN npx prisma migrate deploy
 
 EXPOSE 20000
+
+FROM node:22.9.0 AS production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /app
+
+COPY --from=development /app/ .
+
+EXPOSE 20000
+
+CMD ["node", "dist/main"]

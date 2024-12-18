@@ -1,5 +1,5 @@
 #build
-FROM node:20.11.0 AS development
+FROM node:22.9.0 AS development
 
 WORKDIR /frontend/src/app
 
@@ -12,5 +12,4 @@ RUN npm install @angular/cli@latest -g
 RUN npm install
 RUN npm run build
 
-EXPOSE 30000
-
+EXPOSE 21000
