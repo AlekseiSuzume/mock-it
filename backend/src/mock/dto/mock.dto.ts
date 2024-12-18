@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger/dist/decorators/api-property.decorator';
+import { MatcherType } from '@prisma/client';
 
 export class MockDto {
 	@IsString()
@@ -19,6 +20,10 @@ export class MockDto {
 	@IsOptional()
 	@ApiPropertyOptional()
 	bodyPatterns: string;
+	@IsEnum(MatcherType)
+	@IsOptional()
+	@ApiPropertyOptional({ enum: MatcherType })
+	matcherType: MatcherType;
 	@IsString()
 	@IsOptional()
 	@ApiPropertyOptional()

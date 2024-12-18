@@ -7,5 +7,6 @@ interface IMock {
 	method: string;
 	body: string;
 	body_patterns?: string;
+	matcher_type?: string;
 	created_by_id: number;
 }

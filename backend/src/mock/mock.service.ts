@@ -17,6 +17,7 @@ export class MockService {
 				headers: mockDto.headers,
 				body: mockDto.body,
 				body_patterns: mockDto.bodyPatterns,
+				matcher_type: mockDto.matcherType,
 				created_by_id: mockDto.created_by_id
 			}
 		});

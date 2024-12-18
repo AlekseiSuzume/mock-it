@@ -8,19 +8,25 @@ datasource db {
 }
 
 model Mock {
-  id            Int      @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   name          String
   endpoint      String
-  method        String   @db.VarChar(10)
+  method        String       @db.VarChar(10)
   status_code   Int
   headers       String?
   body          String?
   body_patterns String?
+  matcher_type  MatcherType?
   created_by_id Int
-  author        User     @relation(fields: [created_by_id], references: [id])
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  author        User         @relation(fields: [created_by_id], references: [id])
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
   Log           Log[]
+}
+
+enum MatcherType {
+  KEY_TO_KEY
+  KEY_TO_VALUE
 }
 
 model Log {
