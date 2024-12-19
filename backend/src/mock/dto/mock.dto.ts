@@ -33,9 +33,11 @@ export class MockDto {
 	@ApiProperty()
 	status_code: number;
 	@IsString()
+	@IsOptional()
 	@ApiProperty()
 	body: string;
 	@IsNotEmpty()
+	@IsOptional()
 	@IsNumber()
 	created_by_id: number;
 }

@@ -17,8 +17,8 @@ model Mock {
   body          String?
   body_patterns String?
   matcher_type  MatcherType?
-  created_by_id Int
-  author        User         @relation(fields: [created_by_id], references: [id])
+  created_by_id Int?
+  author        User?        @relation(fields: [created_by_id], references: [id])
   created_at    DateTime     @default(now())
   updated_at    DateTime     @updatedAt
   Log           Log[]
