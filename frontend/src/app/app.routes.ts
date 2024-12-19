@@ -1,26 +1,16 @@
 import { Routes } from '@angular/router';
-import { MockListComponent } from './mock/mock-list/mock-list.component';
-import { Page404Component } from './page-404/page-404.component';
-import { MockEditComponent } from './mock/mock-edit/mock-edit.component';
-import { MockDetailComponent } from './mock/mock-detail/mock-detail.component';
-import { MockCreateComponent } from './mock/mock-create/mock-create.component';
+import { Page404Component } from './components/page-404/page-404.component';
+import { authGuard } from './public/auth/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'mock/:id',
-    component: MockDetailComponent
+    path: 'auth',
+    loadChildren: () => import('./public/auth/auth-routing.module').then((m) => m.AuthRoutingModule)
   },
   {
-    path: 'mocks/create',
-    component: MockCreateComponent
-  },
-  {
-    path: 'mocks',
-    component: MockListComponent
-  },
-  {
-    path: 'mock/:id/edit',
-    component: MockEditComponent
+    path: '',
+    loadChildren: () => import('./private/private-routing.module').then((m) => m.PrivateRoutingModule),
+    canActivate: [authGuard]
   },
   {
     path: '**',

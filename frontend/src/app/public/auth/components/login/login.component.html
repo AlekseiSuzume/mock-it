@@ -1,0 +1,30 @@
+<div class='container'>
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Войти</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]='fbForm' (ngSubmit)='submit()'>
+
+          <mat-form-field>
+            <mat-label>Имя пользователя</mat-label>
+            <input type='login' matInput formControlName='login'>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Пароль</mat-label>
+            <input type='password' matInput formControlName='password'>
+            <mat-error *ngIf='password.touched'></mat-error>
+          </mat-form-field>
+
+          <div class='button'>
+            <button mat-button type='submit' [disabled]='fbForm.invalid'>Войти</button>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

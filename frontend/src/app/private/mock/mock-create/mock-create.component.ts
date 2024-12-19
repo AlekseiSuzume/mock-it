@@ -19,8 +19,9 @@ export class MockCreateComponent {
   public addForm = this._fb.group({
     name: ['', [Validators.required]],
     endpoint: ['', [Validators.required]],
-    body: ['', [Validators.required]],
-    status_code: ['', [Validators.required]]
+    status_code: ['', [Validators.required]],
+    method: ['', [Validators.required]],
+    body: ['', [Validators.required]]
   });
 
   constructor(
@@ -38,12 +39,16 @@ export class MockCreateComponent {
     return this.addForm.get('endpoint') as FormControl;
   }
 
-  get body(): FormControl {
-    return this.addForm.get('body') as FormControl;
-  }
-
   get status_code(): FormControl {
     return this.addForm.get('status_code') as FormControl;
+  }
+
+  get method(): FormControl {
+    return this.addForm.get('method') as FormControl;
+  }
+
+  get body(): FormControl {
+    return this.addForm.get('body') as FormControl;
   }
 
   onSubmit() {
@@ -51,13 +56,12 @@ export class MockCreateComponent {
       this.mockService.addMock({
         bodyPatterns: '',
         headers: '',
-        method: '',
+        method: this.method.value,
         name: this.name.value,
         endpoint: this.endpoint.value,
         body: this.body.value,
-        status_code: this.status_code.value
+        status_code: Number.parseInt(this.status_code.value)
       }).subscribe(() => this.router.navigate(['../mocks']));
     }
   }
-
 }

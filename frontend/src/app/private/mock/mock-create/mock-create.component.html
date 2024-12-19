@@ -6,11 +6,14 @@
     <label for="endpoint">URL:</label>
     <input type="text" id="endpoint" formControlName="endpoint">
 
-    <label for="body">Body:</label>
-    <textarea id="body" formControlName="body"></textarea>
-
     <label for="status_code">Status Code:</label>
     <input type="text" id="status_code" formControlName="status_code">
+
+    <label for="method">Method:</label>
+    <input type="text" id="method" formControlName="method">
+
+    <label for="body">Body:</label>
+    <textarea id="body" formControlName="body"></textarea>
 
     <button mat-button type='submit' [disabled]="!addForm.valid">Add Mock</button>
   </form>
