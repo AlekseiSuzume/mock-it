@@ -1,6 +1,9 @@
 <div class="edit-form-container">
-  <form class="edit-form" [formGroup]="fbForm" (ngSubmit)="onSubmit()">
-    <label for="name">Name:</label>
+  <form class="edit-form" [formGroup]="fbForm">
+    <div>
+      <h3>Request</h3>
+    </div>
+    <label for="name">Name</label>
     <input type="text" id="name" formControlName="name">
 
     <div style="display: flex; flex-direction: row;">
@@ -13,13 +16,18 @@
       </div>
     </div>
 
-    <label for="body">Body:</label>
-    <textarea id="body" formControlName="body"></textarea>
+    <div>
+      <h3>Response</h3>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <label for="status_code">Status:</label>
+      <input style="width: 60px" type="text" id="status_code" formControlName="status_code">
+    </div>
 
-    <label for="status_code">Status code:</label>
-    <input type="text" id="status_code" formControlName="status_code">
+    <div>
+      <app-body-input [bodyInput]="bodyInput" (bodyInputChange)="onBodyInputChange($event)"></app-body-input>
+    </div>
 
-    <!--    <button mat-button type="submit">Submit</button>-->
-    <button mat-button type='submit' [disabled]="!fbForm.valid">Add Mock</button>
+    <button mat-button [disabled]="!fbForm.valid" (click)="save2()">Save</button>
   </form>
 </div>

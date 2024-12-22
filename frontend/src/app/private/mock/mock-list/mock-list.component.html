@@ -1,31 +1,4 @@
 <div class="container">
-  <!--  <div>-->
-  <!--    <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 16px;">-->
-  <!--&lt;!&ndash;      <mat-card class="mock-card" *ngFor="let item of mocks" [routerLink]="['/mock', item.id]">&ndash;&gt;-->
-  <!--      <mat-card *ngFor="let item of mocks" (click)="selectItem(item)" class="card">-->
-  <!--        <mat-card-header>-->
-  <!--          <mat-card-title>{{ item.name }}</mat-card-title>-->
-  <!--        </mat-card-header>-->
-  <!--        <mat-card-content>-->
-  <!--          <div></div>-->
-  <!--          <p>{{ item.body }}</p>-->
-  <!--        </mat-card-content>-->
-  <!--      </mat-card>-->
-  <!--    </div>-->
-  <!--  </div>-->
-
-  <!--  <div class="column item-detail">-->
-  <!--    <h2>Описание карточки</h2>-->
-  <!--    <div *ngIf="selectedItem">-->
-  <!--      <h3>{{ selectedItem.name }}</h3>-->
-  <!--      <p>{{ selectedItem.endpoint }}</p>-->
-  <!--      &lt;!&ndash; Здесь можно добавить дополнительные детали о карточке &ndash;&gt;-->
-  <!--    </div>-->
-  <!--    <div *ngIf="!selectedItem">-->
-  <!--      <p>Выберите карточку для просмотра деталей.</p>-->
-  <!--    </div>-->
-  <!--  </div>-->
-
   <div class="column card-list">
     <mat-card *ngFor="let item of mocks" (click)="selectItem(item.id!)" class="card">
       <mat-card-header>
@@ -36,7 +9,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div>
-    <app-mock-edit [selectedItemId]="selectedItemId"></app-mock-edit>
+  <div class="mock_edit">
+    <app-mock-edit [selectedItemId]="selectedItemId">></app-mock-edit>
   </div>
 </div>

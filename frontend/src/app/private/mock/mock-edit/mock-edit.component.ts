@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMock } from '../mock.interface';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { MatButton } from '@angular/material/button';
 import { JsonPipe, NgIf } from '@angular/common';
 import { MockService } from '../mock.service';
 import { DropdownMethodComponent } from '../../../components/dropdown/dropdown-method.component';
+import { BodyInputComponent } from '../../../components/body-input/body-input.component';
 
 @Component({
   selector: 'app-mock-edit',
@@ -24,23 +25,24 @@ import { DropdownMethodComponent } from '../../../components/dropdown/dropdown-m
     MatButton,
     JsonPipe,
     NgIf,
-    DropdownMethodComponent
+    DropdownMethodComponent,
+    BodyInputComponent
   ],
   providers: [MockService],
   templateUrl: './mock-edit.component.html',
   styleUrl: './mock-edit.component.scss'
 })
-export class MockEditComponent implements OnChanges {
+export class MockEditComponent implements OnChanges, OnDestroy {
 
   @Input() selectedItemId!: number | null;
   mock?: IMock;
   mockSubscription!: Subscription;
   selectedMethod?: string;
+  bodyInput: string = '';
 
   public fbForm = this._fb.group({
     name: [this.mock?.name ?? '', [Validators.required]],
     endpoint: [this.mock?.endpoint ?? '', [Validators.required]],
-    body: [this.mock?.body ?? '', [Validators.required]],
     status_code: [this.mock?.status_code.toString() ?? '', [Validators.required]]
   });
 
@@ -52,23 +54,21 @@ export class MockEditComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes['selectedItemId'] && this.selectedItemId !== null) {
       this.mockSubscription = this.mockService.getMockById(this.selectedItemId.toString())
         .subscribe((mock) => {
             this.mock = mock;
             this.selectedMethod = mock.method;
+            this.bodyInput = mock.body;
             this.fbForm.patchValue({
               name: this.mock.name,
               endpoint: this.mock.endpoint,
-              body: this.mock.body,
               status_code: this.mock.status_code.toString()
             });
           }
         );
     }
   }
-
 
   get name(): FormControl {
     return this.fbForm.get('name') as FormControl;
@@ -78,24 +78,20 @@ export class MockEditComponent implements OnChanges {
     return this.fbForm.get('endpoint') as FormControl;
   }
 
-  get body(): FormControl {
-    return this.fbForm.get('body') as FormControl;
-  }
-
   get status_code(): FormControl {
     return this.fbForm.get('status_code') as FormControl;
   }
 
-  private ngOnDestroy() {
+  ngOnDestroy() {
     if (this.mockSubscription) this.mockSubscription.unsubscribe();
   }
 
   onMethodSelected(method: string): void {
-    this.selectedMethod = method; // Обновите выбранный метод
+    this.selectedMethod = method;
   }
 
-  onSubmit(): void {
-    console.log('SUBMIT');
+  save2(): void {
+    console.log(1);
     if (this.fbForm.valid) {
       this.mockService.editMock({
         id: this.mock?.id,
@@ -104,9 +100,14 @@ export class MockEditComponent implements OnChanges {
         method: this.selectedMethod!,
         name: this.name.value,
         endpoint: this.endpoint.value,
-        body: this.body.value,
+        body: this.bodyInput ?? '',
         status_code: Number.parseInt(this.status_code.value)
       }).subscribe(() => this.router.navigate(['../mocks']));
     }
   }
+
+  onBodyInputChange(value: string): void {
+    this.bodyInput = value;
+  }
+
 }

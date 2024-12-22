@@ -1,0 +1,10 @@
+<div class="container">
+  <span>Body</span>
+  <div class="buttons">
+    <button mat-button (click)="clearInput()">Clear</button>
+    <button mat-button (click)="validateJSON()">Validate</button>
+  </div>
+  <textarea class="body-input" [(ngModel)]="bodyInput" (ngModelChange)="updateBodyInput($event)"></textarea>
+  <div class="validation-message">{{ validationMessage }}</div>
+</div>
+

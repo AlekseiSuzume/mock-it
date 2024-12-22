@@ -38,7 +38,7 @@ export class MockListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mockService.getAllMocks().subscribe(value => this.mocks = value);
+    this.mockService.getAllMocks().subscribe(value => this.mocks = value.reverse());
   }
 
   selectItem(id: number) {
