@@ -1,9 +1,11 @@
 <div class='container'>
   <div>
     <mat-card>
-      <mat-card-header>
-        <mat-card-title>Войти</mat-card-title>
-      </mat-card-header>
+      <div>
+        <mat-card-header>
+          <mat-card-title>MockServer</mat-card-title>
+        </mat-card-header>
+      </div>
 
       <mat-card-content>
         <form [formGroup]='fbForm' (ngSubmit)='submit()'>
@@ -20,7 +22,7 @@
           </mat-form-field>
 
           <div class='button'>
-            <button mat-button type='submit' [disabled]='fbForm.invalid'>Войти</button>
+            <button mat-flat-button type='submit' [disabled]='fbForm.invalid'>Войти</button>
           </div>
 
         </form>

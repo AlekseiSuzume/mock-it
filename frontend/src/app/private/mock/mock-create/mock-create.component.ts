@@ -54,7 +54,7 @@ export class MockCreateComponent {
   onSubmit() {
     if (this.addForm.valid) {
       this.mockService.addMock({
-        bodyPatterns: '',
+        body_patterns: '',
         headers: '',
         method: this.method.value,
         name: this.name.value,

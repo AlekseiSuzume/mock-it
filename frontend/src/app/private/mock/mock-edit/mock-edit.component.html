@@ -1,17 +1,25 @@
 <div class="edit-form-container">
-  <form class="edit-form" [formGroup]="fbForm" (ngSubmit)="edit()">
+  <form class="edit-form" [formGroup]="fbForm" (ngSubmit)="onSubmit()">
     <label for="name">Name:</label>
-    <input type="text" formControlName="name">
+    <input type="text" id="name" formControlName="name">
 
-    <label for="url">Url:</label>
-    <input type="text" formControlName="url">
+    <div style="display: flex; flex-direction: row;">
+      <div>
+        <app-dropdown-method [selectedMethod]="selectedMethod!" (methodSelected)="onMethodSelected($event)">
+        </app-dropdown-method>
+      </div>
+      <div>
+        <input type="text" id="endpoint" formControlName="endpoint">
+      </div>
+    </div>
 
     <label for="body">Body:</label>
     <textarea id="body" formControlName="body"></textarea>
 
     <label for="status_code">Status code:</label>
-    <input type="text" formControlName="status_code">
+    <input type="text" id="status_code" formControlName="status_code">
 
-    <button mat-button type="submit">Submit</button>
+    <!--    <button mat-button type="submit">Submit</button>-->
+    <button mat-button type='submit' [disabled]="!fbForm.valid">Add Mock</button>
   </form>
 </div>

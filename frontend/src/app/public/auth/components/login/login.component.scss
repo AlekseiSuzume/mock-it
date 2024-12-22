@@ -1,14 +1,29 @@
 .container {
   display: flex;
-  justify-content: center;
-  margin: 100px;
-  min-width: 350px;
+  justify-content: center; /* Центрируем по горизонтали */
+  align-items: center; /* Центрируем по вертикали */
+  height: 100vh; /* Задаем высоту контейнера равной высоте экрана */
+  min-width: 350px; /* Минимальная ширина контейнера */
 
   .register {
     margin-bottom: 20px;
   }
 
   mat-card {
+    background-color: #56B9F1;
+
+    mat-card-header{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    mat-card-title {
+      font-size: 32pt;
+      color: white;
+      margin-bottom: 20px;
+    }
+
     mat-card-content {
       form {
         display: flex;
@@ -22,7 +37,7 @@
 
         .button {
           display: flex;
-          justify-content: flex-end;
+          justify-content: center;
         }
       }
     }

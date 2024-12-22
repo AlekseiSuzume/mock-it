@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { IMock } from '../mock.interface';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgIf } from '@angular/common';
 import { MockService } from '../mock.service';
+import { DropdownMethodComponent } from '../../../components/dropdown/dropdown-method.component';
 
 @Component({
   selector: 'app-mock-edit',
@@ -21,45 +22,51 @@ import { MockService } from '../mock.service';
     MatFormField,
     MatInput,
     MatButton,
-    JsonPipe
+    JsonPipe,
+    NgIf,
+    DropdownMethodComponent
   ],
   providers: [MockService],
   templateUrl: './mock-edit.component.html',
   styleUrl: './mock-edit.component.scss'
 })
-export class MockEditComponent implements OnInit {
+export class MockEditComponent implements OnChanges {
 
-  mock!: IMock;
+  @Input() selectedItemId!: number | null;
+  mock?: IMock;
   mockSubscription!: Subscription;
+  selectedMethod?: string;
+
+  public fbForm = this._fb.group({
+    name: [this.mock?.name ?? '', [Validators.required]],
+    endpoint: [this.mock?.endpoint ?? '', [Validators.required]],
+    body: [this.mock?.body ?? '', [Validators.required]],
+    status_code: [this.mock?.status_code.toString() ?? '', [Validators.required]]
+  });
 
   constructor(
-    private route: ActivatedRoute,
     private mockService: MockService,
     private _fb: FormBuilder,
     private router: Router
   ) {
   }
 
-  public fbForm = this._fb.group({
-    name: ['', [Validators.required]],
-    endpoint: ['', [Validators.required]],
-    body: ['', [Validators.required]],
-    status_code: ['', [Validators.required]]
-  });
-
-  ngOnInit(): void {
-    this.mockSubscription = this.route.paramMap
-      .pipe(switchMap((params) => this.mockService.getMockById(params.get('id')!)))
-      .subscribe((mock) => {
-          this.mock = mock;
-          this.fbForm.patchValue({
-            name: this.mock.name,
-            endpoint: this.mock.endpoint,
-            body: this.mock.body,
-            status_code: this.mock.status_code.toString()
-          });
-        }
-      );
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    if (changes['selectedItemId'] && this.selectedItemId !== null) {
+      this.mockSubscription = this.mockService.getMockById(this.selectedItemId.toString())
+        .subscribe((mock) => {
+            this.mock = mock;
+            this.selectedMethod = mock.method;
+            this.fbForm.patchValue({
+              name: this.mock.name,
+              endpoint: this.mock.endpoint,
+              body: this.mock.body,
+              status_code: this.mock.status_code.toString()
+            });
+          }
+        );
+    }
   }
 
 
@@ -83,16 +90,23 @@ export class MockEditComponent implements OnInit {
     if (this.mockSubscription) this.mockSubscription.unsubscribe();
   }
 
-  edit(): void {
-    this.mockService.editMock({
-      id: this.mock.id,
-      bodyPatterns: '',
-      headers: '',
-      method: '',
-      name: this.name.value,
-      endpoint: this.endpoint.value,
-      body: this.body.value,
-      status_code: this.status_code.value
-    }).subscribe(() => this.router.navigate(['../mocks']));
+  onMethodSelected(method: string): void {
+    this.selectedMethod = method; // Обновите выбранный метод
+  }
+
+  onSubmit(): void {
+    console.log('SUBMIT');
+    if (this.fbForm.valid) {
+      this.mockService.editMock({
+        id: this.mock?.id,
+        body_patterns: this.mock?.body_patterns,
+        headers: '',
+        method: this.selectedMethod!,
+        name: this.name.value,
+        endpoint: this.endpoint.value,
+        body: this.body.value,
+        status_code: Number.parseInt(this.status_code.value)
+      }).subscribe(() => this.router.navigate(['../mocks']));
+    }
   }
 }
