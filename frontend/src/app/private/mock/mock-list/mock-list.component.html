@@ -1,15 +1,38 @@
 <div class="container">
-  <div class="column card-list">
-    <mat-card *ngFor="let item of mocks" (click)="selectItem(item.id!)" class="card">
+  <div>
+    <button mat-button (click)="createNewMock()">+ создать новый мок</button>
+  </div>
+</div>
+<div class="content">
+  <div class="column-list card-list">
+    <mat-card *ngFor="let item of mocks; let i = index"
+              (click)="selectItem(i)" class="card"
+              [class.selected-card]="selectedItemIndex === i">
       <mat-card-header>
         <mat-card-title>{{ item.name }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>{{ item.body }}</p>
+        <div>
+          <span [ngClass]="{
+    'badge--get': item.method === 'GET',
+    'badge--post': item.method === 'POST',
+    'badge--put': item.method === 'PUT',
+    'badge--patch': item.method === 'PATCH',
+    'badge--delete': item.method === 'DELETE',
+    'badge--options': item.method === 'OPTIONS'
+  }" class="badge">
+    {{ item.method }}
+  </span>
+          <span>{{ item.endpoint }}</span>
+        </div>
+        <span>{{ item.body }}</span>
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="mock_edit">
-    <app-mock-edit [selectedItemId]="selectedItemId">></app-mock-edit>
+  <div class="column-edit">
+    <app-mock-edit [selectedItem]="selectedItem"
+                   (itemSaved)="handleItemSaved($event)"
+                   (itemDeleted)="handleItemDeleted($event)">">
+    </app-mock-edit>
   </div>
 </div>

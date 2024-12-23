@@ -28,6 +28,9 @@
       <app-body-input [bodyInput]="bodyInput" (bodyInputChange)="onBodyInputChange($event)"></app-body-input>
     </div>
 
-    <button mat-button [disabled]="!fbForm.valid" (click)="save2()">Save</button>
+    <div>
+      <button mat-button [disabled]="!fbForm.valid" (click)="saveItem()">Save</button>
+      <button mat-button [disabled]="!selectedItem?.id" (click)="deleteItem()">Delete</button>
+    </div>
   </form>
 </div>

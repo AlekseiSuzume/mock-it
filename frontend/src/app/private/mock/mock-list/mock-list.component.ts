@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MockListService } from './mock-list.service';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButton } from '@angular/material/button';
 import { IMock } from '../mock.interface';
 import { MatGridList } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MockEditComponent } from '../mock-edit/mock-edit.component';
+import { MockService } from '../mock.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-mock-list',
@@ -20,36 +21,77 @@ import { MockEditComponent } from '../mock-edit/mock-edit.component';
     MatCardModule,
     NgForOf,
     NgIf,
-    MockEditComponent
+    MockEditComponent,
+    NgClass
   ],
-  providers: [MockListService],
+  providers: [MockService, DataService],
   templateUrl: './mock-list.component.html',
   styleUrl: './mock-list.component.scss'
 })
 export class MockListComponent implements OnInit {
 
   mocks!: IMock[];
-  selectedItemId: number | null = null;
+  newMock: IMock | null = null;
+  selectedItem: IMock | null = null;
+  selectedItemIndex: number | null = null;
 
   constructor(
-    private mockService: MockListService,
-    private router: Router
+    private dataService: DataService
   ) {
   }
 
   ngOnInit() {
-    this.mockService.getAllMocks().subscribe(value => this.mocks = value.reverse());
+    this.fetchItems();
+    this.dataService.currentItems$.subscribe(items => {
+      this.mocks = items;
+      if (this.mocks.length > 0) {
+        if (this.selectedItemIndex) {
+          this.selectItem(this.selectedItemIndex);
+        } else {
+          this.selectItem(0);
+        }
+      }
+    });
   }
 
-  selectItem(id: number) {
-    this.selectedItemId = id; // Устанавливаем id выбранного элемента
+  fetchItems() {
+    this.dataService.fetchItems();
   }
 
-  public editItem(mock: IMock) {
-    this.router.navigate([`/mock/${mock.id}/edit`]);
+  handleItemSaved(item: IMock) {
+    this.dataService.saveItem(item).subscribe(() => {
+      this.fetchItems();
+      this.newMock = null;
+    });
   }
 
-  public deleteItem(id: number) {
-    this.mockService.deleteMock(id).subscribe(() => this.mocks = this.mocks.filter(item => item.id !== id));
+  handleItemDeleted(itemId: number) {
+    this.dataService.deleteItem(itemId).subscribe(() => {
+      this.fetchItems();
+    });
   }
+
+  selectItem(index: number) {
+    this.selectedItem = this.mocks[index];
+    this.selectedItemIndex = index;
+
+  }
+
+  createNewMock() {
+    this.dataService.currentItems$.subscribe(items => {
+      this.mocks = items;
+    });
+    if (!this.newMock) {
+      this.newMock = {
+        body: 'Example mock body',
+        endpoint: `/test/${this.mocks[0].id! + 1}`,
+        method: 'GET',
+        name: `Example mock name ${this.mocks[0].id! + 1}`,
+        status_code: 200
+      };
+      this.mocks.unshift(this.newMock);
+      this.selectItem(0);
+    }
+  }
+
 }

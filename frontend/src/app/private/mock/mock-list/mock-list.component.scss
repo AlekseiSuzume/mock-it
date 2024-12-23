@@ -1,31 +1,71 @@
 .container {
   display: flex; /* Используем Flexbox для расположения колонок */
+}
+
+.content {
+  display: flex; /* Используем Flexbox для расположения колонок */
   height: 100vh; /* Установите высоту контейнера равной высоте окна браузера */
 }
 
-.column {
+.column-list {
   flex: 1; /* Каждая колонка занимает равную ширину */
-  padding: 10px; /* Отступы для колонок */
+  padding: 12px; /* Отступы для колонок */
+}
+
+.column-edit {
+  padding: 0 12px 12px 40px;
 }
 
 .card-list {
-  max-width: 420px; /* Максимальная ширина для списка карточек (по желанию) */
-  max-height: 100%; /* Максимальная высота карточек равна высоте контейнера */
+  max-width: 420px;
+  max-height: 100%;
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
   border: 1px solid #ccc; /* Добавляем рамку (по желанию) */
-  border-radius: 5px; /* Скругляем углы рамки (по желанию) */
-}
-
-.mock_edit {
-
+  border-radius: 6px; /* Скругляем углы рамки (по желанию) */
 }
 
 .card {
   cursor: pointer; /* Указатель мыши при наведении на карточку */
-  margin-bottom: 10px; /* Отступ между карточками */
-  transition: transform 0.2s;
+  margin-bottom: 12px; /* Отступ между карточками */
+  transition: transform 0.1s;
 }
 
 .card:hover {
-  transform: scale(1.02); /* Эффект увеличения при наведении */
+  transform: scale(1.02);
+}
+
+.selected-card {
+  border: 1px solid dodgerblue;
+}
+
+.badge {
+  padding: 4px 8px;
+  color: #fff;
+  text-transform: uppercase;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.badge--get {
+  background-color: seagreen;
+}
+
+.badge--post {
+  background-color: orange;
+}
+
+.badge--put {
+  background-color: dodgerblue;
+}
+
+.badge--patch {
+  background-color: darkviolet;
+}
+
+.badge--delete {
+  background-color: red;
+}
+
+.badge--options {
+  background-color: hotpink;
 }

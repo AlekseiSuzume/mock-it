@@ -9,6 +9,10 @@ export class MockService {
   constructor(private http: HttpClient) {
   }
 
+  public getAllMocks(): Observable<IMock[]> {
+    return this.http.get<IMock[]>('api/mocks');
+  }
+
   public addMock(mock: IMock): Observable<IMock> {
     return this.http.post<IMock>('api/mocks', mock);
   }
@@ -19,5 +23,9 @@ export class MockService {
 
   public editMock(mock: IMock): Observable<IMock> {
     return this.http.patch<IMock>(`api/mocks/` + mock.id, mock);
+  }
+
+  public deleteMock(id: number) {
+    return this.http.delete<IMock>(`api/mocks/` + id);
   }
 }
