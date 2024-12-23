@@ -4,28 +4,31 @@
   </div>
 </div>
 <div class="content">
-  <div class="column-list card-list">
-    <mat-card *ngFor="let item of mocks; let i = index"
-              (click)="selectItem(i)" class="card"
-              [class.selected-card]="selectedItemIndex === i">
+  <div class="card-list">
+    <mat-card class="card-list__item"
+              *ngFor="let item of mocks; let i = index"
+              (click)="selectItem(i)"
+              [class.selected--card]="selectedItemIndex === i">
       <mat-card-header>
-        <mat-card-title>{{ item.name }}</mat-card-title>
+        <mat-card-title class="card-list_item__title">{{ item.name }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div>
+        <div class="card-item-block__request">
           <span [ngClass]="{
-    'badge--get': item.method === 'GET',
-    'badge--post': item.method === 'POST',
-    'badge--put': item.method === 'PUT',
-    'badge--patch': item.method === 'PATCH',
-    'badge--delete': item.method === 'DELETE',
-    'badge--options': item.method === 'OPTIONS'
-  }" class="badge">
-    {{ item.method }}
-  </span>
-          <span>{{ item.endpoint }}</span>
+          'badge--get': item.method === 'GET',
+          'badge--post': item.method === 'POST',
+          'badge--put': item.method === 'PUT',
+          'badge--patch': item.method === 'PATCH',
+          'badge--delete': item.method === 'DELETE',
+          'badge--options': item.method === 'OPTIONS'
+          }" class="badge">
+            {{ item.method }}</span>
+          <span class="card-item-block__request__endpoint">{{ item.endpoint }}</span>
         </div>
-        <span>{{ item.body }}</span>
+        <div class="card-item-block__response">
+          <span class="card-item-block__response__status">{{ item.status_code }}</span>
+          <span *ngIf="item.body" class="card-item-block__response__body">{{ item.body }}</span>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

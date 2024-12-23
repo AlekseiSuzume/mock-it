@@ -7,35 +7,79 @@
   height: 100vh; /* Установите высоту контейнера равной высоте окна браузера */
 }
 
-.column-list {
-  flex: 1; /* Каждая колонка занимает равную ширину */
-  padding: 12px; /* Отступы для колонок */
-}
-
 .column-edit {
   padding: 0 12px 12px 40px;
 }
 
 .card-list {
+  flex: 1; /* Каждая колонка занимает равную ширину */
+  padding: 12px; /* Отступы для колонок */
   max-width: 420px;
   max-height: 100%;
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
-  border: 1px solid #ccc; /* Добавляем рамку (по желанию) */
+  border: 1px solid grey; /* Добавляем рамку (по желанию) */
   border-radius: 6px; /* Скругляем углы рамки (по желанию) */
+
+  &__item {
+    cursor: pointer; /* Указатель мыши при наведении на карточку */
+    margin-bottom: 12px; /* Отступ между карточками */
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
 }
 
-.card {
-  cursor: pointer; /* Указатель мыши при наведении на карточку */
-  margin-bottom: 12px; /* Отступ между карточками */
-  transition: transform 0.1s;
+.card-list_item__title {
+  font-size: 18px;
+  line-height: 28px;
+  margin-bottom: 4px;
+  font-weight: 500;
+  overflow-wrap: normal; /* Позволяет переносить длинные слова */
 }
 
-.card:hover {
-  transform: scale(1.02);
+.selected--card {
+  border: 2px solid dodgerblue;
 }
 
-.selected-card {
-  border: 1px solid dodgerblue;
+.card-item-block__request {
+  display: flex;
+  align-items: center; /* Выравнивание по центру по вертикали */
+  gap: 10px; /* Отступ между элементами */
+  margin-bottom: 12px;
+
+  &__endpoint {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 500;
+    width: 85%;
+    overflow-wrap: break-word; /* Позволяет переносить длинные слова */
+
+  }
+}
+
+.card-item-block__response {
+  display: grid;
+  gap: 4px;
+
+  &__status {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  &__body {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background: #fdfdfd;
+    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .badge {
