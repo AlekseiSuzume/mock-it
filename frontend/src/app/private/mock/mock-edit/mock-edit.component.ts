@@ -2,11 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleCha
 import { IMock } from '../mock.interface';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { JsonPipe, NgIf } from '@angular/common';
 import { MockService } from '../mock.service';
 import { DropdownMethodComponent } from '../../../components/dropdown/dropdown-method.component';
 import { BodyInputComponent } from '../../../components/body-input/body-input.component';
@@ -16,15 +12,8 @@ import { DataService } from '../data.service';
   selector: 'app-mock-edit',
   standalone: true,
   imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
     ReactiveFormsModule,
-    MatFormField,
-    MatInput,
     MatButton,
-    JsonPipe,
-    NgIf,
     DropdownMethodComponent,
     BodyInputComponent
   ],

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IMock } from '../mock.interface';
 import { Subscription, switchMap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
 import { NgIf } from '@angular/common';
 import { MockService } from '../mock.service';
 
@@ -10,9 +9,6 @@ import { MockService } from '../mock.service';
   selector: 'app-mock-detail',
   standalone: true,
   imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
     NgIf
   ],
   providers: [MockService],

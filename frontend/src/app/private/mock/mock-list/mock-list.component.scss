@@ -17,10 +17,9 @@
   max-width: 420px;
   max-height: 100%;
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
-  border: 1px solid grey; /* Добавляем рамку (по желанию) */
-  border-radius: 6px; /* Скругляем углы рамки (по желанию) */
 
   &__item {
+    background: white;
     cursor: pointer; /* Указатель мыши при наведении на карточку */
     margin-bottom: 12px; /* Отступ между карточками */
     transition: transform 0.1s;

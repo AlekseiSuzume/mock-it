@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Methods } from '../../private/mock/mock.interface';
 
@@ -8,7 +8,6 @@ import { Methods } from '../../private/mock/mock.interface';
   standalone: true,
   imports: [
     NgForOf,
-    NgIf,
     FormsModule
   ],
   templateUrl: './dropdown-method.component.html',

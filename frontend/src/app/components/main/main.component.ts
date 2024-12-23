@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
+import { RouterOutlet } from '@angular/router';
 import { AuthService } from '../../public/auth/auth.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
-    RouterLink,
-    RouterOutlet,
-    HeaderComponent
+    RouterOutlet
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButton } from '@angular/material/button';
 import { IMock } from '../mock.interface';
-import { MatGridList } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MockEditComponent } from '../mock-edit/mock-edit.component';
@@ -14,10 +12,8 @@ import { DataService } from '../data.service';
   selector: 'app-mock-list',
   standalone: true,
   imports: [
-    RouterLink,
     MatTableModule,
     MatButton,
-    MatGridList,
     MatCardModule,
     NgForOf,
     NgIf,
