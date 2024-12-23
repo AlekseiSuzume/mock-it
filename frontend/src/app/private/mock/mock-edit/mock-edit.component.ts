@@ -100,7 +100,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   onBodyInputChange(value: string): void {
     this.bodyInput = value;
   }
-  
+
   ngOnDestroy() {
     if (this.mockSubscription) this.mockSubscription.unsubscribe();
   }
