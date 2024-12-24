@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif;
+  width: 100%;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .container {
@@ -7,16 +8,20 @@ body {
   flex-direction: column;
 }
 
-.body-input {
-  width: 400px;
-  height: 200px;
+.body-input__label {
+  font-size: 20px;
+}
+
+.body-input__input {
+  font-size: 16px;
+  height: 120px;
   margin-top: 20px;
   padding: 10px;
   border: 1px solid #ccc;
   resize: vertical;
 }
 
-.buttons {
+.button-container {
   display: flex;
   gap: 10px;
   margin-top: 10px;
@@ -26,4 +31,5 @@ body {
   color: green;
   margin-top: 10px;
 }
+
 

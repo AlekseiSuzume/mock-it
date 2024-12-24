@@ -13,9 +13,25 @@ body {
     color: (
       theme-type: light,
       primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      tertiary: mat.$azure-palette,
     ),
-    typography: Roboto,
+    typography: "JetBrains",
     density: 0,
   ));
+}
+
+.input,[type=number],[type=password],[type=text] {
+  border: 1px solid #cacaca;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 20px;
+  padding: 7px 16px;
+  line-height: 24px;
+  text-align: left;
+  background: 0 0;
+}
+
+button[mat-flat-button] {
+  border-radius: 8px;
+  font-size: 1.2rem;
 }

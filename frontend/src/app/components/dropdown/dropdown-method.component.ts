@@ -16,15 +16,15 @@ import { Methods } from '../../private/mock/mock.interface';
 export class DropdownMethodComponent implements OnInit {
   methods = Object.values(Methods);
 
-  @Input() selectedMethod: string = Methods.GET;
-  @Output() methodSelected = new EventEmitter<string>();
+  @Input() selectedMethodInput: string = Methods.GET;
+  @Output() selectedMethodOutput = new EventEmitter<string>();
 
   onSelect(method: string): void {
-    this.selectedMethod = method;
-    this.methodSelected.emit(this.selectedMethod);
+    this.selectedMethodInput = method;
+    this.selectedMethodOutput.emit(this.selectedMethodInput);
   }
 
   ngOnInit(): void {
-    this.selectedMethod = Methods.GET;
+    this.selectedMethodInput = Methods.GET;
   }
 }

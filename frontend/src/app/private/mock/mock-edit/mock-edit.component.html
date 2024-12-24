@@ -1,36 +1,40 @@
 <div class="edit-form-container">
   <form class="edit-form" [formGroup]="fbForm">
     <div>
-      <h3>Request</h3>
+      <h1>Запрос</h1>
     </div>
-    <label for="name">Name</label>
+    <label for="name">Название</label>
     <input type="text" id="name" formControlName="name">
 
-    <div style="display: flex; flex-direction: row;">
-      <div>
-        <app-dropdown-method [selectedMethod]="selectedMethod!" (methodSelected)="onMethodSelected($event)">
+    <div class="request-block-method-endpoint">
+      <div class="request-block-method-endpoint__method">
+        <app-dropdown-method [selectedMethodInput]="selectedMethod!" (selectedMethodOutput)="onMethodSelected($event)">
         </app-dropdown-method>
       </div>
-      <div>
+      <div class="request-block-method-endpoint__endpoint">
         <input type="text" id="endpoint" formControlName="endpoint">
       </div>
     </div>
 
     <div>
-      <h3>Response</h3>
+      <h1>Ответ</h1>
     </div>
-    <div style="display: flex; flex-direction: column;">
-      <label for="status_code">Status:</label>
-      <input style="width: 60px" type="text" id="status_code" formControlName="status_code">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <label for="status_code">Статус</label>
+      <input style="width: 40px" type="text" id="status_code" formControlName="status_code">
+    </div>
+
+    <div>
+      <app-response-headers [headers]="headers" (headersChange)="onHeadersChange($event)"></app-response-headers>
     </div>
 
     <div>
       <app-body-input [bodyInput]="bodyInput" (bodyInputChange)="onBodyInputChange($event)"></app-body-input>
     </div>
 
-    <div>
-      <button mat-button [disabled]="!fbForm.valid" (click)="saveItem()">Save</button>
-      <button mat-button [disabled]="!selectedItem?.id" (click)="deleteItem()">Delete</button>
+    <div class="button-container">
+      <button mat-flat-button [disabled]="!fbForm.valid" (click)="saveItem()">Сохранить</button>
+      <button mat-flat-button [disabled]="!selectedItem?.id" (click)="deleteItem()">Удалить</button>
     </div>
   </form>
 </div>

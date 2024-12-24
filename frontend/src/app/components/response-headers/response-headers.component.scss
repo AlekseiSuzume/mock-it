@@ -1,0 +1,21 @@
+.response-headers {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.response-header {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.response-header__separator {
+  align-self: center
+}
+
+.white-icon {
+  color: white;
+}

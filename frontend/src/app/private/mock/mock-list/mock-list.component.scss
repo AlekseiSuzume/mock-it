@@ -1,21 +1,32 @@
-.container {
-  display: flex; /* Используем Flexbox для расположения колонок */
+.mock-content__main {
+  margin-left: 90px;
+  padding: 32px 32px 0;
+  height: 90vh;
 }
 
-.content {
-  display: flex; /* Используем Flexbox для расположения колонок */
-  height: 100vh; /* Установите высоту контейнера равной высоте окна браузера */
+.mock-main__controls {
+  padding-left: 12px;
+  gap: 16px;
+  display: flex;
+  margin-bottom: 16px;
 }
 
-.column-edit {
+.mock-main__details {
+  display: flex; /* Используем Flexbox для расположения колонок */
+  }
+
+.mock-main-details__edit {
+  flex: 1;
   padding: 0 12px 12px 40px;
+  height: 80vh;
+  overflow-y: auto;
 }
 
-.card-list {
-  flex: 1; /* Каждая колонка занимает равную ширину */
+.mock-main-details__list {
   padding: 12px; /* Отступы для колонок */
+  min-width: 420px;
   max-width: 420px;
-  max-height: 100%;
+  height: 80vh;
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
 
   &__item {
@@ -31,7 +42,7 @@
 }
 
 .card-list_item__title {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 28px;
   margin-bottom: 4px;
   font-weight: 500;
@@ -73,7 +84,7 @@
     background: #fdfdfd;
     padding: 4px 8px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 22px;
     white-space: nowrap;
     overflow: hidden;

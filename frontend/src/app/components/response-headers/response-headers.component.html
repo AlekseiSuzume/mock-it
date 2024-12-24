@@ -1,0 +1,15 @@
+<div class="response-headers">
+  <button mat-flat-button (click)="addHeader()">Добавить заголовок</button>
+  <div class="response-header" *ngFor="let header of headers; let i = index">
+    <div>
+      <input [(ngModel)]="header.key" aria-label="Header name" type="text">
+    </div>
+    <div class="response-header__separator">:</div>
+    <div>
+      <input [(ngModel)]="header.value" aria-label="Header value" type="text">
+    </div>
+    <button mat-mini-fab style="background-color: #ff5a5a" (click)="removeHeader(i)">
+      <mat-icon class="white-icon">delete</mat-icon>
+    </button>
+  </div>
+</div>

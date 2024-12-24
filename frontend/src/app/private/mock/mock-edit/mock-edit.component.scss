@@ -1,12 +1,38 @@
 .edit-form-container {
   display: flex;
-  justify-content: center;
-  height: 100vh;
+  width: 100%;
 }
 
 .edit-form {
   display: flex;
   flex-direction: column;
-  width: 300px;
   gap: 10px;
+}
+
+.request-block-method-endpoint {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__method {
+    width: 120px;
+  }
+
+  &__endpoint {
+    input {
+      width: 600px;
+    }
+  }
+}
+
+label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }

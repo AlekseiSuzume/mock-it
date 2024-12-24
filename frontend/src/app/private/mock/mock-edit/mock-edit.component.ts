@@ -7,6 +7,9 @@ import { MockService } from '../mock.service';
 import { DropdownMethodComponent } from '../../../components/dropdown/dropdown-method.component';
 import { BodyInputComponent } from '../../../components/body-input/body-input.component';
 import { DataService } from '../data.service';
+import { ResponseHeadersComponent } from '../../../components/response-headers/response-headers.component';
+import { convertHeadersToJson } from '../../../../utils/converters';
+import { parseHeaders } from '../../../../utils/parsers';
 
 @Component({
   selector: 'app-mock-edit',
@@ -15,7 +18,8 @@ import { DataService } from '../data.service';
     ReactiveFormsModule,
     MatButton,
     DropdownMethodComponent,
-    BodyInputComponent
+    BodyInputComponent,
+    ResponseHeadersComponent
   ],
   providers: [MockService, DataService],
   templateUrl: './mock-edit.component.html',
@@ -30,6 +34,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   mockSubscription!: Subscription;
   selectedMethod?: string;
   bodyInput: string = '';
+  headers: { key: string, value: string }[] = [];
 
   public fbForm = this._fb.group({
     name: [this.selectedItem?.name ?? '', [Validators.required]],
@@ -38,7 +43,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   });
 
   constructor(
-    private _fb: FormBuilder,
+    private _fb: FormBuilder
   ) {
   }
 
@@ -58,6 +63,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
     if (changes['selectedItem'] && this.selectedItem !== null) {
       this.selectedMethod = this.selectedItem.method;
       this.bodyInput = this.selectedItem.body;
+      this.headers = parseHeaders(this.selectedItem.headers ?? '');
       this.fbForm.patchValue({
         name: this.selectedItem.name,
         endpoint: this.selectedItem.endpoint,
@@ -66,19 +72,23 @@ export class MockEditComponent implements OnChanges, OnDestroy {
     }
   }
 
+  ngOnDestroy() {
+    if (this.mockSubscription) this.mockSubscription.unsubscribe();
+  }
+
   saveItem() {
     if (this.fbForm.valid) {
-      const reqBody = {
+      const reqBody: IMock = {
         id: this.selectedItem!.id,
         body_patterns: this.selectedItem!.body_patterns,
-        headers: '',
+        headers: convertHeadersToJson(this.headers),
         method: this.selectedMethod!,
         name: this.name.value,
         endpoint: this.endpoint.value,
         body: this.bodyInput ?? '',
         status_code: Number.parseInt(this.status_code.value)
       };
-        this.itemSaved.emit(reqBody);
+      this.itemSaved.emit(reqBody);
     }
   }
 
@@ -90,8 +100,8 @@ export class MockEditComponent implements OnChanges, OnDestroy {
     this.bodyInput = value;
   }
 
-  ngOnDestroy() {
-    if (this.mockSubscription) this.mockSubscription.unsubscribe();
+  onHeadersChange(newHeaders: { key: string, value: string }[]) {
+    this.headers = newHeaders;
   }
 
   onMethodSelected(method: string): void {

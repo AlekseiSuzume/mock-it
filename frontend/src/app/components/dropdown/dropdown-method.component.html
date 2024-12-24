@@ -1,5 +1,5 @@
 <div>
-  <select id="methodSelect" [(ngModel)]="selectedMethod" (change)="onSelect(selectedMethod)">
+  <select class="select" [(ngModel)]="selectedMethodInput" (change)="onSelect(selectedMethodInput)">
     <option *ngFor="let method of methods" [value]="method">{{ method }}</option>
   </select>
 </div>
