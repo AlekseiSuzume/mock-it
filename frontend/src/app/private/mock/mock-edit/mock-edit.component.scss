@@ -1,6 +1,8 @@
-.edit-form-container {
-  display: flex;
-  width: 100%;
+.mock-main-details__edit {
+  flex: 1;
+  padding: 0 12px 12px 40px;
+  height: 80vh;
+  overflow-y: auto;
 }
 
 .edit-form {

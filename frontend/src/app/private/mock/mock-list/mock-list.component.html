@@ -1,18 +1,13 @@
-<main class="mock-content__main">
-  <div class="mock-main__controls">
-    <button mat-flat-button (click)="createNewMock()">Создать новый мок</button>
-  </div>
-  <div class="mock-main__details">
-    <div class="mock-main-details__list">
-      <mat-card class="mock-main-details__list__item"
-                *ngFor="let item of mocks; let i = index"
-                (click)="selectItem(i)"
-                [class.selected--card]="selectedItemIndex === i">
-        <mat-card-header>
-          <mat-card-title class="card-list_item__title">{{ item.name }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="card-item-block__request">
+<div class="mock-main-details__list">
+  <mat-card class="mock-main-details__list__item"
+            *ngFor="let item of mocks; let i = index"
+            (click)="selectItem(i)"
+            [class.selected--card]="selectedItemIndex === i">
+    <mat-card-header>
+      <mat-card-title class="card-list_item__title">{{ item.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-item-block__request">
                       <span [ngClass]="{
                       'badge--get': item.method === 'GET',
                       'badge--post': item.method === 'POST',
@@ -22,20 +17,14 @@
                       'badge--options': item.method === 'OPTIONS'
                       }" class="badge">
                         {{ item.method }}</span>
-            <span class="card-item-block__request__endpoint">{{ item.endpoint }}</span>
-          </div>
-          <div class="card-item-block__response">
-            <span class="card-item-block__response__status">{{ item.status_code }}</span>
-            <span *ngIf="item.body" class="card-item-block__response__body">{{ item.body }}</span>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="mock-main-details__edit">
-      <app-mock-edit [selectedItem]="selectedItem"
-                     (itemSaved)="handleItemSaved($event)"
-                     (itemDeleted)="handleItemDeleted($event)">">
-      </app-mock-edit>
-    </div>
-  </div>
-</main>
+        <span class="card-item-block__request__endpoint">{{ item.endpoint }}</span>
+      </div>
+      <div class="card-item-block__response">
+        <span class="card-item-block__response__status">{{ item.status_code }}</span>
+        <span *ngIf="item.body" class="card-item-block__response__body">{{ item.body }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+

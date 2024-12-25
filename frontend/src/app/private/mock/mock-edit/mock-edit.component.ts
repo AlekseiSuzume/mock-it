@@ -27,10 +27,11 @@ import { parseHeaders } from '../../../../utils/parsers';
 })
 export class MockEditComponent implements OnChanges, OnDestroy {
 
-  @Input() selectedItemIndex!: number | null;
+  @Input() selectedItemIndex?: number;
   @Input() selectedItem: IMock | null = null;
-  @Output() itemSaved = new EventEmitter<any>();
-  @Output() itemDeleted = new EventEmitter<number>();
+  @Output() itemSavedEventEmitter = new EventEmitter<any>();
+  @Output() itemDeletedEventEmitter = new EventEmitter<number>();
+
   mockSubscription!: Subscription;
   selectedMethod?: string;
   bodyInput: string = '';
@@ -60,7 +61,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedItem'] && this.selectedItem !== null) {
+    if (this.selectedItem && changes['selectedItem']){
       this.selectedMethod = this.selectedItem.method;
       this.bodyInput = this.selectedItem.body;
       this.headers = parseHeaders(this.selectedItem.headers ?? '');
@@ -88,12 +89,12 @@ export class MockEditComponent implements OnChanges, OnDestroy {
         body: this.bodyInput ?? '',
         status_code: Number.parseInt(this.status_code.value)
       };
-      this.itemSaved.emit(reqBody);
+      this.itemSavedEventEmitter.emit(reqBody);
     }
   }
 
   deleteItem() {
-    this.itemDeleted.emit(this.selectedItem!.id);
+    this.itemDeletedEventEmitter.emit(this.selectedItem!.id);
   }
 
   onBodyInputChange(value: string): void {

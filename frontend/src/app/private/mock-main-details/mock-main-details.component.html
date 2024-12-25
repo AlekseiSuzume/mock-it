@@ -1,0 +1,18 @@
+<main class="mock-content__main">
+  <div class="mock-main__controls">
+    <button mat-flat-button (click)="createNewMock()">Создать новый мок</button>
+  </div>
+  <div class="mock-main__details">
+    <div class="mock-main-details__list">
+      <app-mock-list [mocks]="mocks"
+        (selectItemEventEmitter)="selectItem($event)"
+      />
+    </div>
+    <div class="mock-main-details__details">
+      <app-mock-edit [selectedItem]="selectedItem"
+                     (itemSavedEventEmitter)="handleItemSaved($event)"
+                     (itemDeletedEventEmitter)="handleItemDeleted($event)">
+      </app-mock-edit>
+    </div>
+  </div>
+</main>
