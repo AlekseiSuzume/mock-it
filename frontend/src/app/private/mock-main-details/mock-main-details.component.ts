@@ -5,8 +5,6 @@ import { MatButton } from '@angular/material/button';
 import { DataService } from '../mock/data.service';
 import { IMock } from '../mock/mock.interface';
 import { MockService } from '../mock/mock.service';
-import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-mock-main-details',
@@ -14,14 +12,7 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
   imports: [
     MockEditComponent,
     MockListComponent,
-    MatButton,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    NgForOf,
-    NgIf,
-    NgClass
+    MatButton
   ],
   providers: [MockService, DataService],
   templateUrl: './mock-main-details.component.html',

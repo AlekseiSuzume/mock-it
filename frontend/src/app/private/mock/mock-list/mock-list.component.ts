@@ -1,24 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatButton } from '@angular/material/button';
 import { IMock } from '../mock.interface';
-import { MatCardModule } from '@angular/material/card';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { MockEditComponent } from '../mock-edit/mock-edit.component';
 import { MockService } from '../mock.service';
 import { DataService } from '../data.service';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-mock-list',
   standalone: true,
   imports: [
-    MatTableModule,
-    MatButton,
-    MatCardModule,
-    NgForOf,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatCardTitle,
+    NgClass,
     NgIf,
-    MockEditComponent,
-    NgClass
+    NgForOf
   ],
   providers: [MockService, DataService],
   templateUrl: './mock-list.component.html',

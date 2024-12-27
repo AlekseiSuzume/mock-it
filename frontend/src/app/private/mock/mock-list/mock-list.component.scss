@@ -1,14 +1,15 @@
 .mock-main-details__list {
-  padding: 12px; /* Отступы для колонок */
+  padding: 12px;
   min-width: 420px;
   max-width: 420px;
   height: 80vh;
-  overflow-y: auto; /* Добавляем вертикальную прокрутку */
+  overflow-y: auto;
+  overflow-style: auto;
 
   &__item {
     background: white;
-    cursor: pointer; /* Указатель мыши при наведении на карточку */
-    margin-bottom: 12px; /* Отступ между карточками */
+    cursor: pointer;
+    margin-bottom: 12px;
     transition: transform 0.1s;
 
     &:hover {
@@ -22,7 +23,7 @@
   line-height: 28px;
   margin-bottom: 4px;
   font-weight: 500;
-  overflow-wrap: normal; /* Позволяет переносить длинные слова */
+  overflow-wrap: normal;
 }
 
 .selected--card {
@@ -31,8 +32,8 @@
 
 .card-item-block__request {
   display: flex;
-  align-items: center; /* Выравнивание по центру по вертикали */
-  gap: 10px; /* Отступ между элементами */
+  align-items: center;
+  gap: 10px;
   margin-bottom: 12px;
 
   &__endpoint {
@@ -40,8 +41,7 @@
     line-height: 28px;
     font-weight: 500;
     width: 85%;
-    overflow-wrap: break-word; /* Позволяет переносить длинные слова */
-
+    overflow-wrap: break-word;
   }
 }
 

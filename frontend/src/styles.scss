@@ -15,7 +15,7 @@ body {
       primary: mat.$azure-palette,
       tertiary: mat.$azure-palette,
     ),
-    typography: "JetBrains",
+    typography: "Droid sans",
     density: 0,
   ));
 }
@@ -34,4 +34,32 @@ body {
 button[mat-flat-button] {
   border-radius: 8px;
   font-size: 1.2rem;
+}
+
+:root {
+  @include mat.button-overrides((
+    filled-container-color: #4d9df1,
+  ));
+}
+
+/* Стилизация самой полосы прокрутки */
+::-webkit-scrollbar {
+  width: 12px; /* Ширина полосы прокрутки */
+}
+
+/* Стилизация "ползунка" полосы прокрутки */
+::-webkit-scrollbar-thumb {
+  background-color: #a6d1ff; /* Цвет ползунка */
+  border-radius: 10px; /* Закругление углов */
+}
+
+/* Стилизация дорожки полосы прокрутки */
+::-webkit-scrollbar-track {
+  background: #f4f4f4; /* Цвет дорожки */
+  border-radius: 10px; /* Закругление углов */
+}
+
+/* Стилизация полосы прокрутки при наведении */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6fa4df; /* Цвет ползунка при наведении */
 }
