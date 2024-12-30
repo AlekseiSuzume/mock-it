@@ -1,7 +1,7 @@
 interface IMock {
 	id: number;
 	name: string;
-	endpoint: string;
+	url: string;
 	status_code: number;
 	headers?: string;
 	method: string;

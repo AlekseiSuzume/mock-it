@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { ValidationPipe } from '@nestjs/common';
+import rawBody from 'fastify-raw-body';
 
 const cors = require('cors');
 
@@ -10,8 +11,10 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
 		rawBody: true
 	});
+
 	app.use(cors());
-	await app.register(import('fastify-raw-body'), {
+
+	await app.register(rawBody, {
 		field: 'rawBody', // change the default request.rawBody property name
 		global: true, // add the rawBody to every request. **Default true**
 		encoding: 'utf8', // set it to false to set rawBody as a Buffer **Default utf8**

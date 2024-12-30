@@ -1,8 +1,9 @@
 import { All, Controller, HttpStatus, Req, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { LogService } from './log/log.service';
-import { isValidJSON, isValidXML } from './utils/Validators';
 import { converter } from './utils/Converters';
+import { sleep } from './utils/Sleep';
+import { isValidJSON, isValidXML } from './utils/Validators';
 
 @Controller('/')
 export class AppController {
@@ -15,15 +16,20 @@ export class AppController {
 	async handleAllRequests(@Req() request, @Res() response): Promise<IMock> {
 		const requestTime = converter.toISOString(new Date());
 
+		// Задержка для парсинга request.rawBody
+		await sleep(1);
+
+		console.log(request.rawBody);
+
 		let mock: IMock;
-		if (isValidJSON(request.body)) {
-			mock = await this.appService.JSONHandler(request);
-		} else if (isValidXML(request.body)) {
+		if (isValidJSON(request.rawBody)) {
+			mock = await this.appService.JSONRequestHandler(request);
+		} else if (isValidXML(request.rawBody)) {
 			//TODO XML Request handler
-			mock = response.status(419);
+			mock = response.status(412);
 		} else {
 			//TODO TEXT Request handler
-			mock = response.status(419);
+			mock = response.status(412);
 		}
 
 		let status;

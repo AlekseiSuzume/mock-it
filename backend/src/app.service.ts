@@ -5,7 +5,7 @@ import { MockService } from './mock/mock.service';
 export class AppService {
 	constructor(private readonly mockService: MockService) {}
 
-	public async JSONHandler(@Req() request): Promise<IMock> {
+	public async JSONRequestHandler(@Req() request): Promise<IMock> {
 		const mocks: IMock[] = await this.findByURL(request);
 		const mocksMatchMethod: IMock[] = await this.filterByMethod(request, mocks);
 

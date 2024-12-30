@@ -11,7 +11,7 @@ export class MockDto {
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty()
-	endpoint: string;
+	url: string;
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty()

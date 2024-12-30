@@ -1,6 +1,6 @@
 class Converters {
 	toISOString(date: Date) {
-		return date.toISOString().replace('Z', '');
+		return date.toISOString().replace('T', ' ').replace('Z', '');
 	}
 }
 

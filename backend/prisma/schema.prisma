@@ -10,7 +10,7 @@ datasource db {
 model Mock {
   id            Int          @id @default(autoincrement())
   name          String
-  endpoint      String
+  url           String
   method        String       @db.VarChar(10)
   status_code   Int
   headers       String?
@@ -41,7 +41,6 @@ model Log {
   request_headers  String?
   response_headers String?
   request_time     String
-  response_time    String
   is_matched       Boolean @default(false)
 }
 

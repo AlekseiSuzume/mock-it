@@ -1,4 +1,5 @@
 export interface ILog {
+	id?: number;
 	method: string;
 	mockUrl?: string;
 	response_status: number;
@@ -7,6 +8,5 @@ export interface ILog {
 	request_headers: string;
 	response_headers: string;
 	request_time: string;
-	response_time: string;
 	is_matched: boolean;
 }

@@ -1,7 +1,6 @@
 import { Injectable, Req, Res } from '@nestjs/common';
 import { ILog } from './ILog';
 import { DatabaseService } from '../database/database.service';
-import { converter } from '../utils/Converters';
 
 @Injectable()
 export class LogService {
@@ -15,14 +14,13 @@ export class LogService {
 	): Promise<ILog> {
 		let log: ILog = {
 			method: request.method.toUpperCase(),
-			mockUrl: mock?.endpoint,
-			request_body: request.body,
+			mockUrl: request.url,
+			request_body: request.rawBody,
 			request_headers: JSON.stringify(response.request.raw.headers),
 			request_time: requestTime,
 			response_body: mock?.body,
 			response_headers: mock?.headers ?? '',
 			response_status: response.statusCode,
-			response_time: converter.toISOString(new Date()),
 			is_matched: mock !== undefined
 		};
 
@@ -36,7 +34,6 @@ export class LogService {
 				response_body: log.response_body,
 				response_headers: log.response_headers,
 				response_status: log.response_status,
-				response_time: log.response_time,
 				mock_id: mock?.id,
 				is_matched: log.is_matched
 			}

@@ -11,7 +11,7 @@ export class MockService {
 		return this.db.mock.create({
 			data: {
 				name: mockDto.name,
-				endpoint: mockDto.endpoint,
+				url: mockDto.url,
 				status_code: mockDto.status_code,
 				method: mockDto.method,
 				headers: mockDto.headers,
@@ -52,10 +52,10 @@ export class MockService {
 		});
 	}
 
-	findUrl(endpoint: string): Promise<Mock[]> {
+	findUrl(url: string): Promise<Mock[]> {
 		return this.db.mock.findMany({
 			where: {
-				endpoint: endpoint
+				url: url
 			}
 		});
 	}
