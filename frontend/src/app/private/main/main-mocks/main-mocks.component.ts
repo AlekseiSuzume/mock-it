@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MockEditComponent } from '../mock/mock-edit/mock-edit.component';
-import { MockListComponent } from '../mock/mock-list/mock-list.component';
+import { MockEditComponent } from '../../mock/mock-edit/mock-edit.component';
+import { MockListComponent } from '../../mock/mock-list/mock-list.component';
 import { MatButton } from '@angular/material/button';
-import { DataService } from '../mock/data.service';
-import { IMock } from '../mock/mock.interface';
-import { MockService } from '../mock/mock.service';
+import { MockService } from '../../mock/mock.service';
+import { DataService } from '../../mock/data.service';
+import { IMock } from '../../mock/mock.interface';
 
 @Component({
-  selector: 'app-mock-main-details',
+  selector: 'app-mocks',
   standalone: true,
   imports: [
     MockEditComponent,
@@ -15,10 +15,10 @@ import { MockService } from '../mock/mock.service';
     MatButton
   ],
   providers: [MockService, DataService],
-  templateUrl: './mock-main-details.component.html',
-  styleUrl: './mock-main-details.component.scss'
+  templateUrl: './main-mocks.component.html',
+  styleUrl: './main-mocks.component.scss'
 })
-export class MockMainDetailsComponent implements OnInit{
+export class MainMocksComponent implements OnInit{
 
   mocks: IMock[] = [];
   newMock: IMock | null = null;
@@ -71,7 +71,7 @@ export class MockMainDetailsComponent implements OnInit{
     if (!this.newMock) {
       this.newMock = {
         body: 'Example mock body',
-        endpoint: `/test/${this.mocks[0].id! + 1}`,
+        url: `/test/${this.mocks[0].id! + 1}`,
         method: 'GET',
         name: `Example mock name ${this.mocks[0].id! + 1}`,
         status_code: 200

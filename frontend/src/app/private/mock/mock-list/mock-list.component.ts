@@ -33,8 +33,8 @@ export class MockListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        this.selectItem(0);
-    }
+    this.selectItem(0);
+  }
 
   selectItem(index: number) {
     this.selectedItem = this.mocks[index];

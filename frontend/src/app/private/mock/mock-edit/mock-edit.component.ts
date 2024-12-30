@@ -39,7 +39,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
 
   public fbForm = this._fb.group({
     name: [this.selectedItem?.name ?? '', [Validators.required]],
-    endpoint: [this.selectedItem?.endpoint ?? '', [Validators.required]],
+    endpoint: [this.selectedItem?.url ?? '', [Validators.required]],
     status_code: [this.selectedItem?.status_code.toString() ?? '', [Validators.required]]
   });
 
@@ -67,7 +67,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
       this.headers = parseHeaders(this.selectedItem.headers ?? '');
       this.fbForm.patchValue({
         name: this.selectedItem.name,
-        endpoint: this.selectedItem.endpoint,
+        endpoint: this.selectedItem.url,
         status_code: this.selectedItem.status_code.toString()
       });
     }
@@ -85,7 +85,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
         headers: convertHeadersToJson(this.headers),
         method: this.selectedMethod!,
         name: this.name.value,
-        endpoint: this.endpoint.value,
+        url: this.endpoint.value,
         body: this.bodyInput ?? '',
         status_code: Number.parseInt(this.status_code.value)
       };

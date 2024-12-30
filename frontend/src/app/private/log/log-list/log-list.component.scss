@@ -1,4 +1,4 @@
-.main-mocks-details__list {
+.main-log__list {
   padding: 12px;
   min-width: 420px;
   max-width: 420px;
@@ -18,12 +18,8 @@
   }
 }
 
-.card-list_item__header {
-  padding-bottom: 16px;
-}
-
 .card-list_item__title {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 28px;
   margin-bottom: 4px;
   font-weight: 500;
@@ -38,11 +34,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 
   &__endpoint {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 18px;
+    line-height: 28px;
     font-weight: 500;
     width: 85%;
     overflow-wrap: break-word;
@@ -54,9 +50,8 @@
   gap: 4px;
 
   &__status {
-    font-size: 20px;
-    line-height: 24px;
-    padding-bottom: 4px;
+    font-size: 22px;
+    line-height: 28px;
   }
 
   &__body {

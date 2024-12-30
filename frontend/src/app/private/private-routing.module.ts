@@ -2,7 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { Page404Component } from '../components/page-404/page-404.component';
 import { MainComponent } from './main/main.component';
-import { MockMainDetailsComponent } from './mock-main-details/mock-main-details.component';
+import { MainLogsComponent } from './main/main-logs/main-logs.component';
+import { MainMocksComponent } from './main/main-mocks/main-mocks.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +17,11 @@ export const routes: Routes = [
       },
       {
         path: 'mocks',
-        component: MockMainDetailsComponent
+        component: MainMocksComponent
+      },
+      {
+        path: 'logs',
+        component: MainLogsComponent
       },
       {
         path: '**',

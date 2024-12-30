@@ -1,10 +1,15 @@
-<div class="main-mocks-details__list">
-  <mat-card class="main-mocks-details__list__item"
-            *ngFor="let item of mocks; let i = index"
+<div class="main-log__list">
+  <mat-card class="main-log__list__item"
+            *ngFor="let item of logs; let i = index"
             (click)="selectItem(i)"
             [class.selected--card]="selectedItemIndex === i">
-    <mat-card-header class="card-list_item__header">
-      <mat-card-title class="card-list_item__title">{{ item.name }}</mat-card-title>
+    <mat-card-header style="padding-bottom: 16px">
+      <mat-card-title-group>
+        <mat-card-title class="card-list_item__title">{{ item.request_time }}</mat-card-title>
+        <img mat-card-sm-image style="width: 32px; height: 32px"
+             [src]="item.is_matched ? 'assets/icons/match_circle.svg' : 'assets/icons/unmatched_circle.svg'"
+             alt="Mock matched status">
+      </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
       <div class="card-item-block__request">
@@ -17,11 +22,7 @@
                       'badge--options': item.method === 'OPTIONS'
                       }" class="badge">
                         {{ item.method }}</span>
-        <span class="card-item-block__request__endpoint">{{ item.url }}</span>
-      </div>
-      <div class="card-item-block__response">
-        <span class="card-item-block__response__status">{{ item.status_code }}</span>
-        <span *ngIf="item.body" class="card-item-block__response__body">{{ item.body }}</span>
+        <span class="card-item-block__request__endpoint">{{ item.mock_url }}</span>
       </div>
     </mat-card-content>
   </mat-card>
