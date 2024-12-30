@@ -1,11 +1,11 @@
-import { HttpException, HttpStatus, Injectable, Req, Res } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { MockService } from './mock/mock.service';
 
 @Injectable()
 export class AppService {
 	constructor(private readonly mockService: MockService) {}
 
-	public async handler(@Req() request, @Res() response): Promise<IMock> {
+	public async JSONHandler(@Req() request): Promise<IMock> {
 		const mocks: IMock[] = await this.findByURL(request);
 		const mocksMatchMethod: IMock[] = await this.filterByMethod(request, mocks);
 
@@ -32,13 +32,7 @@ export class AppService {
 			result = mocksMatchMethod[0];
 		}
 
-		if (result) {
-			const status = result.status_code;
-			const responseBody = result.body;
-			return response.status(status).send(responseBody);
-		} else {
-			throw new HttpException('Unable to find mock', HttpStatus.PRECONDITION_FAILED);
-		}
+		return result;
 	}
 
 	private async findByURL(@Req() request): Promise<IMock[]> {

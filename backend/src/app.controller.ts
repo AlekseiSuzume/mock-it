@@ -1,29 +1,50 @@
-import { All, Controller, Req, Res } from '@nestjs/common';
+import { All, Controller, HttpStatus, Req, Res } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LogService } from './log/log.service';
+import { isValidJSON, isValidXML } from './utils/Validators';
+import { converter } from './utils/Converters';
 
 @Controller('/')
 export class AppController {
-	constructor(private readonly appService: AppService) {}
+	constructor(
+		private readonly appService: AppService,
+		private readonly logService: LogService
+	) {}
 
 	@All('*')
 	async handleAllRequests(@Req() request, @Res() response): Promise<IMock> {
-		return this.appService.handler(request, response);
-	}
+		const requestTime = converter.toISOString(new Date());
 
-	// async handler(@Req() request, @Res() response) {
-	// 	const url = request.url;
-	// 	const method = request.method;
-	//
-	// 	const mocks: IMock[] = await this.mockService.findUrl(url);
-	// 	const urlMatchedMocks = mocks.filter((mock) => mock.url === url);
-	// 	const foundMock = urlMatchedMocks.find((mock) => mock.method === method);
-	// 	if (foundMock) {
-	// 		const responseBody = foundMock.body;
-	// 		const status = foundMock.status_code;
-	//
-	// 		return response.status(status).send(responseBody);
-	// 	} else {
-	// 		return response.status(200).send('mock not found');
-	// 	}
-	// }
+		let mock: IMock;
+		if (isValidJSON(request.body)) {
+			mock = await this.appService.JSONHandler(request);
+		} else if (isValidXML(request.body)) {
+			//TODO XML Request handler
+			mock = response.status(419);
+		} else {
+			//TODO TEXT Request handler
+			mock = response.status(419);
+		}
+
+		let status;
+		let responseBody;
+		let responseHeaders;
+
+		if (mock) {
+			status = mock.status_code;
+			responseBody = mock.body;
+			responseHeaders = mock.headers;
+		} else {
+			status = HttpStatus.PRECONDITION_FAILED;
+			responseBody = 'Unable to find mock';
+		}
+
+		response.status(status);
+		response.headers(responseHeaders ? JSON.parse(responseHeaders) : '');
+		response.send(responseBody);
+
+		await this.logService.logging(request, requestTime, response, mock);
+
+		return response;
+	}
 }

@@ -30,16 +30,19 @@ enum MatcherType {
 }
 
 model Log {
-  id            Int      @id @default(autoincrement())
-  mock          Mock     @relation(fields: [mock_id], references: [id])
-  mock_id       Int
-  method        String   @db.VarChar(10)
-  status_code   Int
-  request_body  String?
-  response_body String?
-  request_time  DateTime
-  response_time DateTime
-  created_at    DateTime @default(now())
+  id               Int     @id @default(autoincrement())
+  mock             Mock?   @relation(fields: [mock_id], references: [id])
+  mock_id          Int?
+  mock_url         String?
+  method           String  @db.VarChar(10)
+  response_status  Int
+  request_body     String?
+  response_body    String?
+  request_headers  String?
+  response_headers String?
+  request_time     String
+  response_time    String
+  is_matched       Boolean @default(false)
 }
 
 model User {
