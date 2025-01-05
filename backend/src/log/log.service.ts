@@ -1,6 +1,7 @@
 import { Injectable, Req, Res } from '@nestjs/common';
-import { ILog } from './ILog';
 import { DatabaseService } from '../database/database.service';
+import { LogModel } from './models/log.model';
+import { LogDto } from './models/log.dto';
 
 @Injectable()
 export class LogService {
@@ -10,37 +11,82 @@ export class LogService {
 		@Req() request,
 		requestTime: string,
 		@Res() response,
-		mock?: IMock
-	): Promise<ILog> {
-		let log: ILog = {
-			method: request.method.toUpperCase(),
-			mockUrl: request.url,
-			request_body: request.rawBody,
-			request_headers: JSON.stringify(response.request.raw.headers),
-			request_time: requestTime,
-			response_body: mock?.body,
-			response_headers: mock?.headers ?? '',
-			response_status: response.statusCode,
-			is_matched: mock !== undefined
+		mock?: MockModel
+	): Promise<LogModel> {
+		let log: LogDto = {
+			is_matched: mock !== undefined,
+			request_info: {
+				method: request.method.toUpperCase(),
+				mock_url: request.url,
+				request_body: request.rawBody.toString(),
+				request_headers: JSON.stringify(response.request.raw.headers),
+				request_time: requestTime
+			},
+			response_info: {
+				response_body: mock?.body,
+				response_headers: mock?.headers ?? '',
+				response_status: response.statusCode
+			}
 		};
 
-		return this.db.log.create({
+		const logEntity = await this.db.log.create({
 			data: {
-				mock_url: log?.mockUrl,
-				method: log.method,
-				request_body: log.request_body,
-				request_headers: log.request_headers,
-				request_time: log.request_time,
-				response_body: log.response_body,
-				response_headers: log.response_headers,
-				response_status: log.response_status,
-				mock_id: mock?.id,
+				mock_url: log.request_info.mock_url,
+				method: log.request_info.method,
+				request_body: log.request_info.request_body,
+				request_headers: log.request_info.request_headers,
+				request_time: log.request_info.request_time,
+				response_body: log.response_info.response_body,
+				response_headers: log.response_info.response_headers,
+				response_status: log.response_info.response_status,
 				is_matched: log.is_matched
 			}
 		});
+
+		const result: LogModel = {
+			id: logEntity.id,
+			is_matched: logEntity.is_matched,
+			request_info: {
+				method: logEntity.method,
+				request_url: logEntity.mock_url,
+				request_body: logEntity.request_body,
+				request_headers: logEntity.request_headers,
+				request_time: logEntity.request_time
+			},
+			response_info: {
+				response_body: logEntity.response_body,
+				response_headers: logEntity.response_headers,
+				response_status: logEntity.response_status
+			}
+		};
+
+		return result;
 	}
 
-	getAll(): Promise<ILog[]> {
-		return this.db.log.findMany();
+	async getAll(): Promise<LogModel[]> {
+		const logEntities = await this.db.log.findMany();
+
+		const logModels: LogModel[] = [];
+		for (const logEntity of logEntities) {
+			const logModel: LogModel = {
+				id: logEntity.id,
+				is_matched: logEntity.is_matched,
+				request_info: {
+					method: logEntity.method,
+					request_url: logEntity.mock_url,
+					request_body: logEntity.request_body,
+					request_headers: logEntity.request_headers,
+					request_time: logEntity.request_time
+				},
+				response_info: {
+					response_body: logEntity.response_body,
+					response_headers: logEntity.request_headers,
+					response_status: logEntity.response_status
+				}
+			};
+			logModels.push(logModel);
+		}
+
+		return logModels;
 	}
 }

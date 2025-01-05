@@ -13,23 +13,19 @@ export class AppController {
 	) {}
 
 	@All('*')
-	async handleAllRequests(@Req() request, @Res() response): Promise<IMock> {
+	async handleAllRequests(@Req() request, @Res() response): Promise<MockModel> {
 		const requestTime = converter.toISOString(new Date());
 
 		// Задержка для парсинга request.rawBody
 		await sleep(1);
 
-		console.log(request.rawBody);
-
-		let mock: IMock;
+		let mock: MockModel;
 		if (isValidJSON(request.rawBody)) {
 			mock = await this.appService.JSONRequestHandler(request);
 		} else if (isValidXML(request.rawBody)) {
 			//TODO XML Request handler
-			mock = response.status(412);
 		} else {
 			//TODO TEXT Request handler
-			mock = response.status(412);
 		}
 
 		let status;

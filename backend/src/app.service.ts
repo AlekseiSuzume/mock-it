@@ -5,11 +5,11 @@ import { MockService } from './mock/mock.service';
 export class AppService {
 	constructor(private readonly mockService: MockService) {}
 
-	public async JSONRequestHandler(@Req() request): Promise<IMock> {
-		const mocks: IMock[] = await this.findByURL(request);
-		const mocksMatchMethod: IMock[] = await this.filterByMethod(request, mocks);
+	public async JSONRequestHandler(@Req() request): Promise<MockModel> {
+		const mocks: MockModel[] = await this.findByURL(request);
+		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);
 
-		let result: IMock;
+		let result: MockModel;
 		mocksMatchMethod.forEach((mock) => {
 			let matcher = mock.matcher_type;
 			switch (matcher) {
@@ -35,15 +35,15 @@ export class AppService {
 		return result;
 	}
 
-	private async findByURL(@Req() request): Promise<IMock[]> {
+	private async findByURL(@Req() request): Promise<MockModel[]> {
 		return await this.mockService.findUrl(request.url);
 	}
 
-	private async filterByMethod(@Req() request, mocks: IMock[]): Promise<IMock[]> {
+	private async filterByMethod(@Req() request, mocks: MockModel[]): Promise<MockModel[]> {
 		return mocks.filter((mock) => mock.method === request.method);
 	}
 
-	private isMatchKeyToKey(@Req() request, response: IMock): boolean {
+	private isMatchKeyToKey(@Req() request, response: MockModel): boolean {
 		const jsonPathReq = response.body_patterns.split(',')[0];
 		const jsonPathRes = response.body_patterns.split(',')[1];
 		const requestBody = JSON.parse(request.rawBody);
@@ -86,7 +86,7 @@ export class AppService {
 		return current;
 	}
 
-	private isMatchKeyToValue(@Req() request, response: IMock): boolean {
+	private isMatchKeyToValue(@Req() request, response: MockModel): boolean {
 		const jsonPath = response.body_patterns.split(',')[0];
 		const keys = jsonPath.split('.').map((value) => value.trim());
 		const jsonPathValue = response.body_patterns.split(',')[1].trim();

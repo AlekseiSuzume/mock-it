@@ -1,4 +1,4 @@
-interface IMock {
+interface MockModel {
 	id: number;
 	name: string;
 	url: string;

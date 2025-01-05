@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MockDto } from './dto/mock.dto';
+import { MockDto } from './models/mock.dto';
 import { DatabaseService } from '../database/database.service';
 import { Mock } from '@prisma/client';
 
@@ -7,7 +7,7 @@ import { Mock } from '@prisma/client';
 export class MockService {
 	constructor(private readonly db: DatabaseService) {}
 
-	async create(mockDto: MockDto): Promise<IMock> {
+	async create(mockDto: MockDto): Promise<MockModel> {
 		return this.db.mock.create({
 			data: {
 				name: mockDto.name,
@@ -23,11 +23,11 @@ export class MockService {
 		});
 	}
 
-	async getAll(): Promise<IMock[]> {
+	async getAll(): Promise<MockModel[]> {
 		return this.db.mock.findMany();
 	}
 
-	async getOne(id: number): Promise<IMock> {
+	async getOne(id: number): Promise<MockModel> {
 		return this.db.mock.findFirst({
 			where: {
 				id: id
@@ -35,7 +35,7 @@ export class MockService {
 		});
 	}
 
-	async update(id: number, mockDto: MockDto): Promise<IMock> {
+	async update(id: number, mockDto: MockDto): Promise<MockModel> {
 		return this.db.mock.update({
 			where: {
 				id: id
@@ -44,7 +44,7 @@ export class MockService {
 		});
 	}
 
-	delete(id: number): Promise<IMock> {
+	delete(id: number): Promise<MockModel> {
 		return this.db.mock.delete({
 			where: {
 				id: id

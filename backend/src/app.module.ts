@@ -9,7 +9,7 @@ import { MockService } from './mock/mock.service';
 import { UserService } from './users/user.service';
 import { UserModule } from './users/user.module';
 import { LogService } from './log/log.service';
-import { LogController } from './log/log.controller';
+import { LogModule } from './log/log.module';
 
 @Module({
 	imports: [
@@ -20,9 +20,10 @@ import { LogController } from './log/log.controller';
 		MockModule,
 		DatabaseModule,
 		AuthModule,
-		UserModule
+		UserModule,
+		LogModule
 	],
-	controllers: [AppController, LogController],
+	controllers: [AppController],
 	providers: [AppService, MockService, UserService, LogService]
 })
 export class AppModule {}

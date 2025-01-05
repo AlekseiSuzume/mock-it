@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { MockService } from './mock.service';
-import { MockDto } from './dto/mock.dto';
+import { MockDto } from './models/mock.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -12,32 +12,32 @@ export class MockController {
 
 	@Post()
 	@ApiOperation({ summary: 'Create a new mock' })
-	async create(@Body() mockDto: MockDto): Promise<IMock> {
+	async create(@Body() mockDto: MockDto): Promise<MockModel> {
 		return await this.mockService.create(mockDto);
 	}
 
 	@Get()
 	@ApiOperation({ summary: 'Get all mocks' })
 	@ApiOkResponse({ isArray: true })
-	async getAll(): Promise<IMock[]> {
+	async getAll(): Promise<MockModel[]> {
 		return await this.mockService.getAll();
 	}
 
 	@Get(':id')
 	@ApiOperation({ summary: 'Get mock by id' })
-	async getOne(@Param('id') id: string): Promise<IMock> {
+	async getOne(@Param('id') id: string): Promise<MockModel> {
 		return this.mockService.getOne(+id);
 	}
 
 	@Patch(':id')
 	@ApiOperation({ summary: 'Update mock by id' })
-	async update(@Param('id') id: string, @Body() mockDto: MockDto): Promise<IMock> {
+	async update(@Param('id') id: string, @Body() mockDto: MockDto): Promise<MockModel> {
 		return this.mockService.update(+id, mockDto);
 	}
 
 	@Delete(':id')
 	@ApiOperation({ summary: 'Delete mock by id' })
-	async delete(@Param('id') id: string): Promise<IMock> {
+	async delete(@Param('id') id: string): Promise<MockModel> {
 		return this.mockService.delete(+id);
 	}
 }
