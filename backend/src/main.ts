@@ -8,9 +8,14 @@ import rawBody from 'fastify-raw-body';
 const cors = require('cors');
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
-		rawBody: true
-	});
+	const fastifyAdapter = new FastifyAdapter();
+	fastifyAdapter
+		.getInstance()
+		.addContentTypeParser('*', { bodyLimit: 0 }, (_request, _payload, done) => {
+			done(null, null);
+		});
+
+	const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter);
 
 	app.use(cors());
 

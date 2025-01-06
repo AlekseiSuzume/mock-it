@@ -80,7 +80,7 @@ export class LogService {
 				},
 				response_info: {
 					response_body: logEntity.response_body,
-					response_headers: logEntity.request_headers,
+					response_headers: logEntity.response_headers,
 					response_status: logEntity.response_status
 				}
 			};
