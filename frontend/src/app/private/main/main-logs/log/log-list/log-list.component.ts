@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LogService } from '../log.service';
-import { ILog } from '../ILog';
+import { LogModel } from '../log.model';
 import {
   MatCard,
   MatCardContent,
@@ -30,19 +30,19 @@ import { NgClass, NgForOf } from '@angular/common';
 })
 export class LogListComponent implements OnInit {
 
-  @Input() logs: ILog[] = [];
-  selectedItem: ILog | null = null;
+  @Input() logs: LogModel[] = [];
+  selectedItem: LogModel | null = null;
   selectedItemIndex: number | null = null;
 
   @Output() selectItemEventEmitter = new EventEmitter<number>();
 
-  constructor(private logService: LogService) {
-  }
+  // constructor(private logService: LogService) {
+  // }
 
   ngOnInit(): void {
-    this.logService.currentItems$.subscribe((data) => {
-      this.logs = data;
-    });
+    // this.logService.currentItems$.subscribe((data) => {
+    //   this.logs = data;
+    // });
     this.selectItem(0);
   }
 

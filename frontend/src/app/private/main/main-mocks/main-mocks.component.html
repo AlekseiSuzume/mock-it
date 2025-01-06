@@ -3,12 +3,12 @@
     <button mat-flat-button (click)="createNewMock()">Создать новый мок</button>
   </div>
   <div class="main-mocks__details">
-    <div class="main-mocks-details__list">
+    <div class="main-mocks__details__list">
       <app-mock-list [mocks]="mocks"
         (selectItemEventEmitter)="selectItem($event)"
       />
     </div>
-    <div class="main-mocks-details__details">
+    <div class="main-mocks__details__edit">
       <app-mock-edit [selectedItem]="selectedItem"
                      (itemSavedEventEmitter)="handleItemSaved($event)"
                      (itemDeletedEventEmitter)="handleItemDeleted($event)">

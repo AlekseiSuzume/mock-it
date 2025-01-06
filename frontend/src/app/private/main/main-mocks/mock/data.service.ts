@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MockService } from './mock.service';
-import { IMock } from './mock.interface';
+import { MockModel } from './mock.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private itemsSource = new BehaviorSubject<IMock[]>([]);
-  currentItems$: Observable<IMock[]> = this.itemsSource.asObservable();
+  private itemsSource = new BehaviorSubject<MockModel[]>([]);
+  currentItems$: Observable<MockModel[]> = this.itemsSource.asObservable();
 
   constructor(private mockService: MockService) {
   }
@@ -21,7 +21,7 @@ export class DataService {
       });
   }
 
-  saveItem(item: IMock) {
+  saveItem(item: MockModel) {
     if (item.id) {
       return this.mockService.editMock(item);
     } else {

@@ -1,13 +1,15 @@
 <main class="mock-content__main">
-  <div class="main__controls">
+  <div class="main-logs__controls">
     <button mat-flat-button (click)="clear()">Очистить</button>
   </div>
-  <div class="mock-main__details">
-    <div>
-      <app-log-list/>
+  <div class="main-logs__details">
+    <div class="main-logs__details__list">
+      <app-log-list [logs]="logs"
+        (selectItemEventEmitter)="selectItem($event)">
+      </app-log-list>
     </div>
-    <div>
-      <app-log-detail>
+    <div class="main-logs__details__details">
+      <app-log-detail [selectedItem]="selectedItem">
       </app-log-detail>
     </div>
   </div>

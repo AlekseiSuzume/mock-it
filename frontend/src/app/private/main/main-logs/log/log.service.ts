@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ILog } from './ILog';
+import { LogModel } from './log.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogService {
-  private itemsSource = new BehaviorSubject<ILog[]>([]);
-  currentItems$: Observable<ILog[]> = this.itemsSource.asObservable();
+  private itemsSource = new BehaviorSubject<LogModel[]>([]);
+  currentItems$: Observable<LogModel[]> = this.itemsSource.asObservable();
 
   constructor(private http: HttpClient) {
     this.fetchItems()
   }
 
-  private getAllLogs(): Observable<ILog[]> {
-    return this.http.get<ILog[]>('api/logs');
+  private getAllLogs(): Observable<LogModel[]> {
+    return this.http.get<LogModel[]>('api/logs');
   }
 
   public fetchItems() {

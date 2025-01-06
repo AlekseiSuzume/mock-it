@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MockEditComponent } from '../../mock/mock-edit/mock-edit.component';
-import { MockListComponent } from '../../mock/mock-list/mock-list.component';
+import { MockEditComponent } from './mock/mock-edit/mock-edit.component';
+import { MockListComponent } from './mock/mock-list/mock-list.component';
 import { MatButton } from '@angular/material/button';
-import { MockService } from '../../mock/mock.service';
-import { DataService } from '../../mock/data.service';
-import { IMock } from '../../mock/mock.interface';
+import { MockService } from './mock/mock.service';
+import { DataService } from './mock/data.service';
+import { MockModel } from './mock/mock.model';
 
 @Component({
   selector: 'app-mocks',
@@ -20,9 +20,9 @@ import { IMock } from '../../mock/mock.interface';
 })
 export class MainMocksComponent implements OnInit{
 
-  mocks: IMock[] = [];
-  newMock: IMock | null = null;
-  selectedItem: IMock | null = null;
+  mocks: MockModel[] = [];
+  newMock: MockModel | null = null;
+  selectedItem: MockModel | null = null;
   selectedItemIndex: number | null = null;
 
   constructor(private dataService: DataService) {
@@ -46,7 +46,7 @@ export class MainMocksComponent implements OnInit{
     this.dataService.fetchItems();
   }
 
-  handleItemSaved(item: IMock) {
+  handleItemSaved(item: MockModel) {
     this.dataService.saveItem(item).subscribe(() => {
       this.fetchItems();
       this.newMock = null;

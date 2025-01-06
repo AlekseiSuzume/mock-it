@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IMock } from '../mock.interface';
+import { MockModel } from '../mock.model';
 import { MockService } from '../mock.service';
 import { DataService } from '../data.service';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
@@ -23,14 +23,11 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 })
 export class MockListComponent implements OnInit {
 
-  @Input() mocks: IMock[] = [];
-  selectedItem: IMock | null = null;
+  @Input() mocks: MockModel[] = [];
+  selectedItem: MockModel | null = null;
   selectedItemIndex: number | null = null;
 
   @Output() selectItemEventEmitter = new EventEmitter<number>();
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     this.selectItem(0);

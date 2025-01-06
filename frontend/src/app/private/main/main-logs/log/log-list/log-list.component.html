@@ -5,7 +5,7 @@
             [class.selected--card]="selectedItemIndex === i">
     <mat-card-header style="padding-bottom: 16px">
       <mat-card-title-group>
-        <mat-card-title class="card-list_item__title">{{ item.request_time }}</mat-card-title>
+        <mat-card-title class="card-list_item__title">{{ item.request_info.request_time }}</mat-card-title>
         <img mat-card-sm-image style="width: 32px; height: 32px"
              [src]="item.is_matched ? 'assets/icons/match_circle.svg' : 'assets/icons/unmatched_circle.svg'"
              alt="Mock matched status">
@@ -14,15 +14,15 @@
     <mat-card-content>
       <div class="card-item-block__request">
                       <span [ngClass]="{
-                      'badge--get': item.method === 'GET',
-                      'badge--post': item.method === 'POST',
-                      'badge--put': item.method === 'PUT',
-                      'badge--patch': item.method === 'PATCH',
-                      'badge--delete': item.method === 'DELETE',
-                      'badge--options': item.method === 'OPTIONS'
+                      'badge--get': item.request_info.method === 'GET',
+                      'badge--post': item.request_info.method === 'POST',
+                      'badge--put': item.request_info.method === 'PUT',
+                      'badge--patch': item.request_info.method === 'PATCH',
+                      'badge--delete': item.request_info.method === 'DELETE',
+                      'badge--options': item.request_info.method === 'OPTIONS'
                       }" class="badge">
-                        {{ item.method }}</span>
-        <span class="card-item-block__request__endpoint">{{ item.mock_url }}</span>
+                        {{ item.request_info.method }}</span>
+        <span class="card-item-block__request__endpoint">{{ item.request_info.request_url }}</span>
       </div>
     </mat-card-content>
   </mat-card>

@@ -4,13 +4,21 @@
   height: 90vh;
 }
 
-.main__controls {
+.main-logs__controls {
   padding-left: 12px;
   gap: 16px;
   display: flex;
   margin-bottom: 16px;
 }
 
-.mock-main__details {
+.main-logs__details {
   display: flex;
+}
+
+.main-logs__details__list {
+  width: 460px;
+}
+
+.main-logs__details__details {
+  flex-grow: 1;
 }

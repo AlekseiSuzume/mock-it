@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Methods } from '../../private/mock/mock.interface';
+import { Methods } from '../../private/main/main-mocks/mock/mock.model';
 
 @Component({
   selector: 'app-dropdown-method',

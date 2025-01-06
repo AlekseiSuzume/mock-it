@@ -1,4 +1,3 @@
-
 export function parseHeaders(jsonString: string): { key: string, value: string }[] {
   if (jsonString.length > 0) {
     try {

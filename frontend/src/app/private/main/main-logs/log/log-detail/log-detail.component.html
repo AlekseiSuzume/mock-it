@@ -1,0 +1,51 @@
+<div class="main-logs-details">
+  <div class="request__header">
+    <h2>{{ selectedItem?.request_info?.request_time }}</h2>
+  </div>
+  <div class="main-logs-details__details">
+    <h2>Запрос</h2>
+    <table class="table">
+      <tbody>
+      <tr>
+        <th>URL</th>
+        <td>{{ selectedItem?.request_info?.request_url }}</td>
+      </tr>
+      <tr>
+        <th>Method</th>
+        <td>{{ selectedItem?.request_info?.method }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table">
+      <tbody>
+      <tr *ngFor="let header of requestHeaders">
+        <th>{{ header.key }}</th>
+        <td>{{ header.value }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="selectedItem?.request_info?.request_body">
+        <pre class="body">
+          <code class="body__code">{{ selectedItem?.request_info?.request_body }}</code>
+          </pre>
+    </div>
+    <h2>Ответ</h2>
+    <table class="table">
+      <tbody>
+      <tr>
+        <th>Статус</th>
+        <td>{{ selectedItem?.response_info?.response_status }}</td>
+      </tr>
+      <tr *ngFor="let header of responseHeaders">
+        <th>{{ header.key }}</th>
+        <td>{{ header.value }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="selectedItem?.response_info?.response_body">
+      <pre class="body">
+          <code class="body__code">{{ selectedItem?.response_info?.response_body }}</code>
+      </pre>
+    </div>
+  </div>
+</div>

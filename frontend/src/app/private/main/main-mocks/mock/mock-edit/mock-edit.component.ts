@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
-import { IMock } from '../mock.interface';
+import { MockModel } from '../mock.model';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MockService } from '../mock.service';
-import { DropdownMethodComponent } from '../../../components/dropdown/dropdown-method.component';
-import { BodyInputComponent } from '../../../components/body-input/body-input.component';
 import { DataService } from '../data.service';
-import { ResponseHeadersComponent } from '../../../components/response-headers/response-headers.component';
-import { convertHeadersToJson } from '../../../../utils/converters';
-import { parseHeaders } from '../../../../utils/parsers';
+import { DropdownMethodComponent } from '../../../../../components/dropdown/dropdown-method.component';
+import { BodyInputComponent } from '../../../../../components/body-input/body-input.component';
+import { ResponseHeadersComponent } from '../../../../../components/response-headers/response-headers.component';
+import { parseHeaders } from '../../../../../../utils/parsers';
+import { convertHeadersToJson } from '../../../../../../utils/converters';
 
 @Component({
   selector: 'app-mock-edit',
@@ -28,7 +28,7 @@ import { parseHeaders } from '../../../../utils/parsers';
 export class MockEditComponent implements OnChanges, OnDestroy {
 
   @Input() selectedItemIndex?: number;
-  @Input() selectedItem: IMock | null = null;
+  @Input() selectedItem: MockModel | null = null;
   @Output() itemSavedEventEmitter = new EventEmitter<any>();
   @Output() itemDeletedEventEmitter = new EventEmitter<number>();
 
@@ -79,7 +79,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
 
   saveItem() {
     if (this.fbForm.valid) {
-      const reqBody: IMock = {
+      const reqBody: MockModel = {
         id: this.selectedItem!.id,
         body_patterns: this.selectedItem!.body_patterns,
         headers: convertHeadersToJson(this.headers),

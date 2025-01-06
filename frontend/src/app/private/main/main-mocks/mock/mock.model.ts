@@ -1,4 +1,4 @@
-export interface IMock {
+export interface MockModel {
   id?: number,
   name: string;
   url: string;
