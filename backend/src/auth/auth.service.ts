@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserModel } from '../users/models/user.model';
+
 const bcrypt = require('bcrypt');
 
 @Injectable()
@@ -12,7 +13,7 @@ export class AuthService {
 	}
 
 	async generateRefreshJwt(user: CreateUserModel): Promise<any> {
-		return this.jwtService.signAsync({ user }, { expiresIn: '7d' });
+		return this.jwtService.signAsync({ user }, { expiresIn: '2d' });
 	}
 
 	async decodedJwt(token: string) {

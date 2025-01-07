@@ -34,27 +34,6 @@ export class AuthService {
     );
   }
 
-  // public register(user: IUser): Observable<IUser> {
-  //   return this.httpClient.post<IUser>('api/v1/users/register', user).pipe(
-  //     tap(
-  //       (res: IUser) =>
-  //         this.snackbar.open(
-  //           `Пользователь ${res.username} создан`,
-  //           'Закрыть',
-  //           this.snackbarConfig
-  //         ),
-  //       catchError((err) => {
-  //         this.snackbar.open(
-  //           `Невозможно создать пользователя: ${err.error.message}`,
-  //           'Закрыть',
-  //           this.snackbarConfig
-  //         );
-  //         return throwError(() => err);
-  //       })
-  //     )
-  //   );
-  // }
-
   public logOut() {
     localStorage.removeItem(this.JWT_TOKEN);
     this.isAuthentication.next(false);
@@ -70,8 +49,12 @@ export class AuthService {
 
   public isTokenExpired() {
     const jwtHelper = new JwtHelperService();
-    const token = localStorage.getItem(this.JWT_TOKEN);
-    return jwtHelper.isTokenExpired(token);
+    const jwtTokens = localStorage.getItem(this.JWT_TOKEN);
+    if (jwtTokens) {
+      const tokens: ILoginResponse = JSON.parse(jwtTokens);
+      return jwtHelper.isTokenExpired(tokens.accessToken);
+    }
+    return true;
   }
 
   public isLoggedIn() {
