@@ -28,6 +28,10 @@
       transition: background-color 0.3s;
       width: 100%;
 
+      &__person {
+        padding-bottom: 36px;
+      }
+
       &.active {
         background-color: rgba(77, 157, 241, 0.2);
         color: #4d9df1;
@@ -58,3 +62,4 @@
 .sidebar:hover .menu-item .link-text {
   opacity: 1;
 }
+

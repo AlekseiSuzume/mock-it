@@ -1,5 +1,9 @@
 <div class="sidebar" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
   <div class="sidebar-content">
+    <div class="menu-item menu-item__person" [class.hovered]="isHovered">
+      <img ngSrc="assets/icons/person.svg" alt="User Icon" height="24" width="24" />
+      <span class="link-text" *ngIf="isHovered">{{ userName }}</span>
+    </div>
     <a class="menu-item" [class.hovered]="isHovered" routerLink="/mocks" routerLinkActive="active">
       <img ngSrc="assets/icons/home.svg" alt="Home Icon" height="24" width="24" />
       <span class="link-text" *ngIf="isHovered">Главная</span>
