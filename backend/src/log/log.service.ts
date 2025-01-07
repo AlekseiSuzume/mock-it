@@ -89,4 +89,8 @@ export class LogService {
 
 		return logModels;
 	}
+
+	async deleteAll() {
+		return this.db.log.deleteMany({});
+	}
 }

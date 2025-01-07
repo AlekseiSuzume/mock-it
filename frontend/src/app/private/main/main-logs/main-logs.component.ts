@@ -5,6 +5,7 @@ import { LogDetailComponent } from './log/log-detail/log-detail.component';
 import { LogModel } from './log/log.model';
 import { LogService } from './log/log.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-main-logs',
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LogListComponent,
     LogDetailComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './main-logs.component.html',
   styleUrl: './main-logs.component.scss'
@@ -68,11 +70,12 @@ export class MainLogsComponent implements OnInit {
       item.request_info.method.toLowerCase().includes(searchTextLower) ||
       item.request_info.request_url.toLowerCase().includes(searchTextLower)
     );
-    this.selectItem(0)
+    this.selectItem(0);
   }
 
     clear() {
-    //TODO реализовать вызов метода удаления логов
+    this.logService.delete();
+    this.fetchItems();
   }
 
 }

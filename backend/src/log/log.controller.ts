@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { LogService } from './log.service';
@@ -15,5 +15,11 @@ export class LogController {
 	@ApiOkResponse({ isArray: true })
 	async getAll(): Promise<LogModel[]> {
 		return await this.mockService.getAll();
+	}
+
+	@Delete()
+	@ApiOperation({ summary: 'Delete all logs' })
+	async deleteAll() {
+		return this.mockService.deleteAll();
 	}
 }

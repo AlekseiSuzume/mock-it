@@ -18,6 +18,14 @@ export class LogService {
     return this.http.get<LogModel[]>('api/logs');
   }
 
+  private deleteAllLogs() {
+    return this.http.delete<LogModel[]>('api/logs');
+  }
+
+  public delete() {
+    this.deleteAllLogs().subscribe();
+  }
+
   public fetchItems() {
    this.getAllLogs().subscribe(
       (data) => {

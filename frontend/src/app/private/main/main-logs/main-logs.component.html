@@ -10,7 +10,7 @@
       </app-log-list>
     </div>
     <div class="main-logs__details__details">
-      <app-log-detail [selectedItem]="selectedItem">
+      <app-log-detail *ngIf="selectedItem" [selectedItem]="selectedItem">
       </app-log-detail>
     </div>
   </div>
