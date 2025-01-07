@@ -4,6 +4,7 @@ import { LogListComponent } from './log/log-list/log-list.component';
 import { LogDetailComponent } from './log/log-detail/log-detail.component';
 import { LogModel } from './log/log.model';
 import { LogService } from './log/log.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main-logs',
@@ -11,7 +12,9 @@ import { LogService } from './log/log.service';
   imports: [
     MatButton,
     LogListComponent,
-    LogDetailComponent
+    LogDetailComponent,
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './main-logs.component.html',
   styleUrl: './main-logs.component.scss'
@@ -25,10 +28,14 @@ export class MainLogsComponent implements OnInit {
   selectedItem: LogModel | null = null;
   selectedItemIndex: number | null = null;
 
+  searchText: string = '';
+  filteredLogs: LogModel[] = [];
+
   ngOnInit(): void {
     this.fetchItems();
     this.logService.currentItems$.subscribe(items => {
       this.logs = items;
+      this.filteredLogs = items;
       if (this.logs.length > 0) {
         if (this.selectedItemIndex) {
           this.selectItem(this.selectedItemIndex);
@@ -44,8 +51,24 @@ export class MainLogsComponent implements OnInit {
   }
 
   selectItem(index: number) {
-    this.selectedItem = this.logs[index];
+    this.selectedItem = this.filteredLogs[index];
     this.selectedItemIndex = index;
+  }
+
+  filterItems() {
+    if (!this.searchText) {
+      this.filteredLogs = this.logs;
+      this.selectItem(0)
+      return;
+    }
+
+    const searchTextLower = this.searchText.toLowerCase();
+    this.filteredLogs = this.logs.filter(item =>
+      item.request_info.request_time.toLowerCase().includes(searchTextLower) ||
+      item.request_info.method.toLowerCase().includes(searchTextLower) ||
+      item.request_info.request_url.toLowerCase().includes(searchTextLower)
+    );
+    this.selectItem(0)
   }
 
     clear() {

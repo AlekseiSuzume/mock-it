@@ -5,10 +5,15 @@
 }
 
 .main-logs__controls {
+  width: 408px;
   padding-left: 12px;
   gap: 16px;
   display: flex;
   margin-bottom: 16px;
+}
+
+.main-logs__controls__search-input {
+  border-radius: 8px;
 }
 
 .main-logs__details {

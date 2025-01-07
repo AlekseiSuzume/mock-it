@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { LogService } from '../log.service';
 import { LogModel } from '../log.model';
 import {
@@ -28,7 +28,7 @@ import { NgClass, NgForOf } from '@angular/common';
   templateUrl: './log-list.component.html',
   styleUrl: './log-list.component.scss'
 })
-export class LogListComponent implements OnInit {
+export class LogListComponent implements OnInit, OnChanges {
 
   @Input() logs: LogModel[] = [];
   selectedItem: LogModel | null = null;
@@ -36,14 +36,14 @@ export class LogListComponent implements OnInit {
 
   @Output() selectItemEventEmitter = new EventEmitter<number>();
 
-  // constructor(private logService: LogService) {
-  // }
-
   ngOnInit(): void {
-    // this.logService.currentItems$.subscribe((data) => {
-    //   this.logs = data;
-    // });
     this.selectItem(0);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.logs && changes['logs']){
+      this.selectItem(0);
+    }
   }
 
   selectItem(index: number) {

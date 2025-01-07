@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LogModel } from '../log.model';
 import { NgForOf, NgIf } from '@angular/common';
 import { parseHeaders } from '../../../../../../utils/parsers';
@@ -18,8 +18,8 @@ export class LogDetailComponent implements OnChanges {
   requestHeaders: { key: string, value: string }[] = [];
   responseHeaders: { key: string, value: string }[] = [];
 
-  ngOnChanges(): void {
-    if (this.selectedItem) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.selectedItem && changes['selectedItem']) {
       this.requestHeaders = parseHeaders(this.selectedItem.request_info.request_headers);
       this.responseHeaders = parseHeaders(this.selectedItem.response_info.response_headers);
     }

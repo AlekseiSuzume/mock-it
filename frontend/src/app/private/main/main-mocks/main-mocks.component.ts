@@ -81,7 +81,8 @@ export class MainMocksComponent implements OnInit{
     const searchTextLower = this.searchText.toLowerCase();
     this.filteredMocks = this.mocks.filter(item =>
       item.name.toLowerCase().includes(searchTextLower) ||
-      item.url.toLowerCase().includes(searchTextLower)
+      item.url.toLowerCase().includes(searchTextLower) ||
+      item.method.toLowerCase().includes(searchTextLower)
     );
     this.selectItem(0)
   }
