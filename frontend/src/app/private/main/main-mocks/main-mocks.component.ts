@@ -5,6 +5,7 @@ import { MatButton } from '@angular/material/button';
 import { MockService } from './mock/mock.service';
 import { DataService } from './mock/data.service';
 import { MockModel } from './mock/mock.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-mocks',
@@ -12,7 +13,8 @@ import { MockModel } from './mock/mock.model';
   imports: [
     MockEditComponent,
     MockListComponent,
-    MatButton
+    MatButton,
+    FormsModule,
   ],
   providers: [MockService, DataService],
   templateUrl: './main-mocks.component.html',
@@ -25,6 +27,10 @@ export class MainMocksComponent implements OnInit{
   selectedItem: MockModel | null = null;
   selectedItemIndex: number | null = null;
 
+  searchText: string = '';
+  filteredMocks: MockModel[] = [];
+
+
   constructor(private dataService: DataService) {
   }
 
@@ -32,6 +38,7 @@ export class MainMocksComponent implements OnInit{
     this.fetchItems();
     this.dataService.currentItems$.subscribe(items => {
       this.mocks = items;
+      this.filteredMocks = items;
       if (this.mocks.length > 0) {
         if (this.selectedItemIndex) {
           this.selectItem(this.selectedItemIndex);
@@ -60,8 +67,23 @@ export class MainMocksComponent implements OnInit{
   }
 
   selectItem(index: number) {
-    this.selectedItem = this.mocks[index];
+    this.selectedItem = this.filteredMocks[index];
     this.selectedItemIndex = index;
+  }
+
+  filterItems() {
+    if (!this.searchText) {
+      this.filteredMocks = this.mocks;
+      this.selectItem(0)
+      return;
+    }
+
+    const searchTextLower = this.searchText.toLowerCase();
+    this.filteredMocks = this.mocks.filter(item =>
+      item.name.toLowerCase().includes(searchTextLower) ||
+      item.url.toLowerCase().includes(searchTextLower)
+    );
+    this.selectItem(0)
   }
 
   createNewMock() {

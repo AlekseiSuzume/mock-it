@@ -1,10 +1,11 @@
 <main class="mock-content__main">
   <div class="main-mocks__controls">
-    <button mat-flat-button (click)="createNewMock()">Создать новый мок</button>
+      <button class="main-mocks__controls__create-button" mat-flat-button (click)="createNewMock()">Создать новый мок</button>
+      <input class="main-mocks__controls__search-input" type="text" [(ngModel)]="searchText" (input)="filterItems()" placeholder="Search">
   </div>
   <div class="main-mocks__details">
     <div class="main-mocks__details__list">
-      <app-mock-list [mocks]="mocks"
+      <app-mock-list [mocks]="filteredMocks"
         (selectItemEventEmitter)="selectItem($event)"
       />
     </div>

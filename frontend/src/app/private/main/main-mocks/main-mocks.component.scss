@@ -5,10 +5,20 @@
 }
 
 .main-mocks__controls {
+  width: 408px;
   padding-left: 12px;
   gap: 16px;
   display: flex;
   margin-bottom: 16px;
+}
+
+.main-mocks__controls__create-button {
+  width: 55%;
+}
+
+.main-mocks__controls__search-input {
+  width: 40%;
+  border-radius: 8px;
 }
 
 .main-mocks__details {

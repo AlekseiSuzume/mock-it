@@ -27,7 +27,6 @@ import { convertHeadersToJson } from '../../../../../../utils/converters';
 })
 export class MockEditComponent implements OnChanges, OnDestroy {
 
-  @Input() selectedItemIndex?: number;
   @Input() selectedItem: MockModel | null = null;
   @Output() itemSavedEventEmitter = new EventEmitter<any>();
   @Output() itemDeletedEventEmitter = new EventEmitter<number>();
