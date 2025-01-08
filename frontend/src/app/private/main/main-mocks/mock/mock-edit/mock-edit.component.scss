@@ -7,7 +7,7 @@
 
 .edit-form {
   display: flex;
-  max-width: 1200px;
+  max-width: 800px;
   flex-direction: column;
   gap: 10px;
 }
@@ -24,7 +24,7 @@
 
   &__endpoint {
     input {
-      width: 1040px;
+      width: 640px;
     }
   }
 }
