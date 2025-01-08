@@ -1,19 +1,27 @@
-.container {
+.container-404 {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
 
-  p {
-    align-self: center;
-  }
-
-  button {
-    align-self: center;
+.not-found-button {
+    margin-top: 20px;
     appearance: none;
     border: 0;
     border-radius: 5px;
-    background: #4676D7;
+    background: #4d9df1;
     color: #fff;
     padding: 8px 16px;
     font-size: 16px;
-  }
+}
+
+.not-found-404 {
+  font-size: 60px;
+  color: #4d9df1;
+}
+
+.not-found-text {
+  font-size: 24px;
 }
