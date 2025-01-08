@@ -1,18 +1,15 @@
 .container {
   display: flex;
-  justify-content: center; /* Центрируем по горизонтали */
-  align-items: center; /* Центрируем по вертикали */
-  height: 100vh; /* Задаем высоту контейнера равной высоте экрана */
-  min-width: 350px; /* Минимальная ширина контейнера */
-
-  .register {
-    margin-bottom: 20px;
-  }
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #5faaff;
 
   mat-card {
-    background-color: #56B9F1;
+    background-color: white;
+    width: 360px;
 
-    mat-card-header{
+    mat-card-header {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -20,27 +17,26 @@
 
     mat-card-title {
       font-size: 32pt;
-      color: white;
+      color: #5faaff;
       margin-bottom: 20px;
     }
 
     mat-card-content {
-      form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        mat-form-field {
-          width: 100%;
-          min-width: 300px;
-        }
-
-        .button {
-          display: flex;
-          justify-content: center;
-        }
+      mat-form-field {
+        width: 100%;
       }
+
+
     }
   }
+}
 
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    width: 60%;
+  }
 }

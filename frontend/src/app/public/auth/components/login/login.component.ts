@@ -5,7 +5,6 @@ import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { Subscription } from 'rxjs';
 
@@ -19,8 +18,7 @@ import { Subscription } from 'rxjs';
     MatFormFieldModule,
     MatButton,
     MatInput,
-    FormsModule,
-    NgIf
+    FormsModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

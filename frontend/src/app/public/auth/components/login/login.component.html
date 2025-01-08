@@ -18,14 +18,13 @@
           <mat-form-field>
             <mat-label>Пароль</mat-label>
             <input type='password' matInput formControlName='password'>
-            <mat-error *ngIf='password.touched'></mat-error>
           </mat-form-field>
 
-          <div class='button'>
+          <div class="submit-button">
             <button mat-flat-button type='submit' [disabled]='fbForm.invalid'>Войти</button>
           </div>
-
         </form>
+
       </mat-card-content>
     </mat-card>
   </div>
