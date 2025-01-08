@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgIf, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { parseJwt } from '../../../utils/parsers';
+import { AuthService } from '../../public/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,6 +20,9 @@ export class SidebarComponent implements OnInit {
   isHovered = false;
   userName?: string;
 
+  constructor(private authService: AuthService) {
+  }
+
   ngOnInit(): void {
     const jwtToken = localStorage.getItem('JWT_TOKEN');
     if (jwtToken) {
@@ -26,5 +30,9 @@ export class SidebarComponent implements OnInit {
       const user = parseJwt(accessToken).user;
       this.userName = user.username ?? 'Гость';
     }
+  }
+
+  logOut(){
+    this.authService.logOut();
   }
 }
