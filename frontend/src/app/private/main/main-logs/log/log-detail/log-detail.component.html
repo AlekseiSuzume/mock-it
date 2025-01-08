@@ -3,7 +3,7 @@
     <h2>{{ selectedItem?.request_info?.request_time }}</h2>
   </div>
   <div class="main-logs-details__details">
-    <h2>Запрос</h2>
+    <h2>Request</h2>
     <table class="table">
       <tbody>
       <tr>
@@ -29,11 +29,11 @@
           <code class="body__code">{{ selectedItem?.request_info?.request_body }}</code>
           </pre>
     </div>
-    <h2>Ответ</h2>
+    <h2>Response</h2>
     <table class="table">
       <tbody>
       <tr>
-        <th>Статус</th>
+        <th>Status</th>
         <td>{{ selectedItem?.response_info?.response_status }}</td>
       </tr>
       <tr *ngFor="let header of responseHeaders">

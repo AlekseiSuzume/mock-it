@@ -1,5 +1,5 @@
 <div class="response-headers">
-  <button mat-flat-button (click)="addHeader()">Добавить заголовок</button>
+  <button mat-flat-button (click)="addHeader()">Add header</button>
   <div class="response-header" *ngFor="let header of headers; let i = index">
     <div>
       <input [(ngModel)]="header.key" aria-label="Header name" type="text">

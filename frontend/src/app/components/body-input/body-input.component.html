@@ -1,10 +1,10 @@
 <div class="container">
-  <span class="body-input__label">Тело ответа</span>
+  <span class="body-input__label">Response body</span>
   <div class="button-container">
-    <button mat-flat-button (click)="clearInput()">Очистить</button>
-    <button mat-flat-button (click)="validateJSON()">Валидация</button>
+    <button mat-flat-button (click)="clearInput()">Clear</button>
+    <button mat-flat-button (click)="validateJSON()">Validate</button>
   </div>
   <textarea class="body-input__input" [(ngModel)]="bodyInput" (ngModelChange)="updateBodyInput($event)"></textarea>
-  <div class="validation-message">{{ validationMessage }}</div>
+   <div class="validation-message" [ngStyle]="{'color': isValid ? 'green' : 'red'}">{{ validationMessage }}</div>
 </div>
 

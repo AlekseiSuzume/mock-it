@@ -7,7 +7,7 @@
 
 .edit-form {
   display: flex;
-  max-width: 800px;
+  max-width: 1000px;
   flex-direction: column;
   gap: 10px;
 }
@@ -15,7 +15,7 @@
 .request-block-method-endpoint {
   margin-top: 1rem;
   display: flex;
-  width: 100%;
+  //width: 100%;
   gap: 10px;
 
   &__method {
@@ -23,8 +23,10 @@
   }
 
   &__endpoint {
+    flex-grow: 1;
+    display: flex;
     input {
-      width: 640px;
+      flex-grow: 1;
     }
   }
 }
