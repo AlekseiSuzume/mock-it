@@ -38,7 +38,7 @@ button[mat-flat-button] {
 
 :root {
   @include mat.button-overrides((
-    filled-container-color: #4d9df1,
+    filled-container-color: #5faaff,
   ));
 }
 
@@ -62,4 +62,12 @@ button[mat-flat-button] {
 /* Стилизация полосы прокрутки при наведении */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #6fa4df; /* Цвет ползунка при наведении */
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
 }

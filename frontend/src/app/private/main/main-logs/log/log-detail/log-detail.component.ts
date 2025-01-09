@@ -17,11 +17,16 @@ export class LogDetailComponent implements OnChanges {
   @Input() selectedItem: LogModel | null = null;
   requestHeaders: { key: string, value: string }[] = [];
   responseHeaders: { key: string, value: string }[] = [];
+  absoluteUrl?: string;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedItem && changes['selectedItem']) {
       this.requestHeaders = parseHeaders(this.selectedItem.request_info.request_headers);
       this.responseHeaders = parseHeaders(this.selectedItem.response_info.response_headers);
+      const hostHeader = this.requestHeaders.find(header => header.key === 'host');
+      if (hostHeader) {
+        this.absoluteUrl = hostHeader.value + this.selectedItem.request_info.request_url;
+      }
     }
   }
 
