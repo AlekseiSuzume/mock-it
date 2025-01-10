@@ -79,8 +79,8 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   saveItem() {
     if (this.fbForm.valid) {
       const reqBody: MockModel = {
-        id: this.selectedItem!.id,
-        body_patterns: this.selectedItem!.body_patterns,
+        id: this.selectedItem?.id,
+        body_patterns: this.selectedItem?.body_patterns,
         headers: convertHeadersToJson(this.headers),
         method: this.selectedMethod!,
         name: this.name.value,

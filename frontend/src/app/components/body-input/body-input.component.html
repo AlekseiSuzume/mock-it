@@ -1,7 +1,7 @@
 <div class="input-container">
   <div class="button-container">
     <span class="body-input__label">Response body</span>
-    <button mat-flat-button class="clear-button" (click)="clearInput()">Clear</button>
+    <button mat-flat-button red-button (click)="clearInput()">Clear</button>
 <!--    <button mat-flat-button (click)="validateJSON()">Validate</button>-->
   </div>
   <textarea class="body-input__input" [(ngModel)]="bodyInput" (ngModelChange)="updateBodyInput($event)"></textarea>

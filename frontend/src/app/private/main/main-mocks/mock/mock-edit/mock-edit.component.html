@@ -31,7 +31,7 @@
 
     <div class="button-container">
       <button mat-flat-button [disabled]="!fbForm.valid" (click)="saveItem()">Save</button>
-      <button mat-flat-button class="delete-button" [disabled]="!selectedItem?.id" (click)="deleteItem()">Delete</button>
+      <button mat-flat-button red-button [disabled]="!selectedItem?.id" (click)="deleteItem()">Delete</button>
     </div>
   </form>
 </div>

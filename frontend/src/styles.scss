@@ -36,6 +36,12 @@ button[mat-flat-button] {
   font-size: 1.2rem;
 }
 
+button[mat-flat-button][red-button] {
+  border-radius: 8px;
+  font-size: 1.2rem;
+  background-color: #ff5a5a;
+}
+
 :root {
   @include mat.button-overrides((
     filled-container-color: #5faaff,

@@ -14,7 +14,7 @@
 
 .table {
   border: none;
-  margin-bottom: 20px;
+  //margin-bottom: 8px;
 }
 
 .table tbody tr {
@@ -24,14 +24,14 @@
   flex: 0 1 30%;
   text-align: left;
   font-weight: 600;
-  padding: 10px 15px;
+  padding: 8px 12px;
   font-size: 18px;
 }
 
 .table tbody tr td {
   flex: 0 1 70%;
   text-align: left;
-  padding: 10px 15px;
+  padding: 8px 12px;
   font-weight: 400;
   font-size: 18px;
   word-break: break-all;
