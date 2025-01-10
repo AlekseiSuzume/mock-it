@@ -11,7 +11,8 @@ export class LogService {
 		@Req() request,
 		requestTime: string,
 		@Res() response,
-		mock?: MockModel
+		mock?: MockModel,
+		responseBody?: string
 	): Promise<LogModel> {
 		let log: LogDto = {
 			is_matched: mock !== undefined,
@@ -23,7 +24,7 @@ export class LogService {
 				request_time: requestTime
 			},
 			response_info: {
-				response_body: mock?.body,
+				response_body: mock?.body ?? responseBody,
 				response_headers: mock?.headers ?? '',
 				response_status: response.statusCode
 			}

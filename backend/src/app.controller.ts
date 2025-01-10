@@ -24,8 +24,10 @@ export class AppController {
 			mock = await this.appService.JSONRequestHandler(request);
 		} else if (isValidXML(request.rawBody)) {
 			//TODO XML Request handler
+			mock = await this.appService.JSONRequestHandler(request);
 		} else {
 			//TODO TEXT Request handler
+			mock = await this.appService.JSONRequestHandler(request);
 		}
 
 		let status;
@@ -37,15 +39,15 @@ export class AppController {
 			responseBody = mock.body;
 			responseHeaders = mock.headers;
 		} else {
-			status = HttpStatus.PRECONDITION_FAILED;
-			responseBody = 'Unable to find mock';
+			status = HttpStatus.NOT_FOUND;
+			responseBody = 'Request not matched';
 		}
 
 		response.status(status);
 		response.headers(responseHeaders ? JSON.parse(responseHeaders) : '');
 		response.send(responseBody);
 
-		await this.logService.logging(request, requestTime, response, mock);
+		await this.logService.logging(request, requestTime, response, mock, responseBody);
 
 		return response;
 	}
