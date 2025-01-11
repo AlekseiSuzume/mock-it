@@ -6,15 +6,15 @@
     </div>
     <a class="menu-item" [class.hovered]="isHovered" routerLink="/mocks" routerLinkActive="active">
       <img ngSrc="assets/icons/home.svg" alt="Home Icon" height="24" width="24" />
-      <span class="link-text" *ngIf="isHovered">Главная</span>
+      <span class="link-text" *ngIf="isHovered">Mocks</span>
     </a>
     <a class="menu-item" [class.hovered]="isHovered" routerLink="/logs" routerLinkActive="active">
       <img ngSrc="assets/icons/flowsheet.svg" alt="Logs Icon" height="24" width="24" />
-      <span class="link-text" *ngIf="isHovered">История&nbsp;запросов</span>
+      <span class="link-text" *ngIf="isHovered">Request&nbsp;history</span>
     </a>
     <a class="menu-item" [class.hovered]="isHovered" routerLink="/logout" routerLinkActive="active" (click)="logOut()">
       <img ngSrc="assets/icons/logout.svg" alt="Logout Icon" height="24" width="24" />
-      <span class="link-text" *ngIf="isHovered">Выход</span>
+      <span class="link-text" *ngIf="isHovered">LogOut</span>
     </a>
   </div>
 </div>
