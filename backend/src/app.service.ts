@@ -94,7 +94,7 @@ export class AppService {
 
 		const result = this.getValueFromKeys(requestBody, keys);
 		let isMatched: boolean;
-		if (result.toString() == jsonPathValue.toString()) {
+		if (result && result.toString() == jsonPathValue.toString()) {
 			isMatched = true;
 		}
 

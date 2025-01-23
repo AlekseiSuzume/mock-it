@@ -19,11 +19,11 @@ export class MockDto {
 	@IsString()
 	@IsOptional()
 	@ApiPropertyOptional()
-	bodyPatterns: string;
+	body_patterns: string;
 	@IsEnum(MatcherType)
 	@IsOptional()
 	@ApiPropertyOptional({ enum: MatcherType })
-	matcherType: MatcherType;
+	matcher_type: MatcherType;
 	@IsString()
 	@IsOptional()
 	@ApiPropertyOptional()
