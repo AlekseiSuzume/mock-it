@@ -26,6 +26,12 @@
     </div>
 
     <div>
+      <app-matcher [selectedMatcherTypeInput]="selectedMatcherType!" (selectedMatcherTypeOutput)="onMatcherTypeSelected($event)"
+                   [matcherPatternInput]="matcherPattern" (matcherPatternInputChange)="onMatcherPatternInputChange($event)"
+      ></app-matcher>
+    </div>
+
+    <div>
       <app-body-input [bodyInput]="bodyInput" (bodyInputChange)="onBodyInputChange($event)"></app-body-input>
     </div>
 

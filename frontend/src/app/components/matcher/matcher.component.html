@@ -1,0 +1,32 @@
+<div class="matcher-container">
+  <label>Match type</label>
+  <div class="matcher-container-select-input">
+    <div class="matcher-container-select-input__select">
+      <select class="select" [(ngModel)]="selectedMatcherTypeInput" (change)="onSelect(selectedMatcherTypeInput)">
+        <option *ngFor="let matcherType of matcherTypesValues" [value]="matcherType">{{ matcherType }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="selectedMatcherTypeInput !== 'NONE'" class="key-value">
+
+    <div class="matcher-container">
+      <label for="before">Request key</label>
+      <input type="text" id="before" [(ngModel)]="partBeforeComma" (ngModelChange)="onPartBeforeChange($event)" />
+    </div>
+
+    <div class="key-value__separator">:</div>
+
+    <div class="matcher-container">
+      <ng-container *ngIf="selectedMatcherTypeInput === MatcherTypes.KEY_TO_KEY; else requestValueLabel">
+        <label for="after">Response key</label>
+      </ng-container>
+      <ng-template #requestValueLabel>
+        <label for="after">Request value</label>
+      </ng-template>
+      <input type="text" id="after" [(ngModel)]="partAfterComma" (ngModelChange)="onPartAfterChange($event)" />
+    </div>
+
+  </div>
+
+</div>

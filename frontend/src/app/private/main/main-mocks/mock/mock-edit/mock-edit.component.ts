@@ -10,6 +10,7 @@ import { BodyInputComponent } from '../../../../../components/body-input/body-in
 import { ResponseHeadersComponent } from '../../../../../components/response-headers/response-headers.component';
 import { parseHeaders } from '../../../../../../utils/parsers';
 import { convertHeadersToJson } from '../../../../../../utils/converters';
+import { MatcherComponent } from '../../../../../components/matcher/matcher.component';
 
 @Component({
   selector: 'app-mock-edit',
@@ -19,7 +20,8 @@ import { convertHeadersToJson } from '../../../../../../utils/converters';
     MatButton,
     DropdownMethodComponent,
     BodyInputComponent,
-    ResponseHeadersComponent
+    ResponseHeadersComponent,
+    MatcherComponent
   ],
   providers: [MockService, DataService],
   templateUrl: './mock-edit.component.html',
@@ -33,7 +35,9 @@ export class MockEditComponent implements OnChanges, OnDestroy {
 
   mockSubscription!: Subscription;
   selectedMethod?: string;
+  selectedMatcherType?: string;
   bodyInput: string = '';
+  matcherPattern?: string;
   headers: { key: string, value: string }[] = [];
 
   public fbForm = this._fb.group({
@@ -60,8 +64,10 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.selectedItem && changes['selectedItem']){
+    if (this.selectedItem && changes['selectedItem']) {
       this.selectedMethod = this.selectedItem.method;
+      this.selectedMatcherType = this.selectedItem.matcher_type;
+      this.matcherPattern = this.selectedItem.body_patterns;
       this.bodyInput = this.selectedItem.body;
       this.headers = parseHeaders(this.selectedItem.headers ?? '');
       this.fbForm.patchValue({
@@ -80,9 +86,10 @@ export class MockEditComponent implements OnChanges, OnDestroy {
     if (this.fbForm.valid) {
       const reqBody: MockModel = {
         id: this.selectedItem?.id,
-        body_patterns: this.selectedItem?.body_patterns,
+        body_patterns: this.selectedMatcherType !== 'NONE' ? this.matcherPattern : '',
         headers: convertHeadersToJson(this.headers),
         method: this.selectedMethod!,
+        matcher_type: this.selectedMatcherType!,
         name: this.name.value,
         url: this.endpoint.value,
         body: this.bodyInput ?? '',
@@ -108,4 +115,11 @@ export class MockEditComponent implements OnChanges, OnDestroy {
     this.selectedMethod = method;
   }
 
+  onMatcherTypeSelected(matcherType: string): void {
+    this.selectedMatcherType = matcherType;
+  }
+
+  onMatcherPatternInputChange(value: string) {
+    this.matcherPattern = value;
+  }
 }

@@ -6,14 +6,15 @@ export interface MockModel {
   status_code: number;
   body: string;
   body_patterns?: string;
-  matcherType?: MatcherType;
+  matcher_type?: string;
   headers?: string;
   created_by_id?: number;
 }
 
 export enum MatcherType {
-  KEY_TO_KEY,
-  KEY_TO_VALUE
+  NONE = 'NONE',
+  KEY_TO_KEY = 'KEY_TO_KEY',
+  KEY_TO_VALUE = 'KEY_TO_VALUE'
 }
 
 export enum Methods {
