@@ -5,6 +5,20 @@ import { MockService } from './mock/mock.service';
 export class AppService {
 	constructor(private readonly mockService: MockService) {}
 
+	public async textRequestHandler(@Req() request): Promise<MockModel> {
+		const mocks: MockModel[] = await this.findByURL(request);
+		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);
+
+		return mocksMatchMethod[0];
+	}
+
+	public async XMLRequestHandler(@Req() request): Promise<MockModel> {
+		const mocks: MockModel[] = await this.findByURL(request);
+		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);
+
+		return mocksMatchMethod[0];
+	}
+
 	public async JSONRequestHandler(@Req() request): Promise<MockModel> {
 		const mocks: MockModel[] = await this.findByURL(request);
 		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);

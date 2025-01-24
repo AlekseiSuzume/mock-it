@@ -23,11 +23,9 @@ export class AppController {
 		if (isValidJSON(request.rawBody)) {
 			mock = await this.appService.JSONRequestHandler(request);
 		} else if (isValidXML(request.rawBody)) {
-			//TODO XML Request handler
-			mock = await this.appService.JSONRequestHandler(request);
+			mock = await this.appService.XMLRequestHandler(request);
 		} else {
-			//TODO TEXT Request handler
-			mock = await this.appService.JSONRequestHandler(request);
+			mock = await this.appService.textRequestHandler(request);
 		}
 
 		let status;
