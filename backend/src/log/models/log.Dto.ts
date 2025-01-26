@@ -1,8 +1,9 @@
 export interface LogDto {
+	id: number;
 	is_matched: boolean;
 	request_info: {
 		method: string;
-		mock_url?: string;
+		request_url: string;
 		request_body: string;
 		request_headers: string;
 		request_time: string;

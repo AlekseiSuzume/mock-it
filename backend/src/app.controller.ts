@@ -45,7 +45,7 @@ export class AppController {
 		response.headers(responseHeaders ? JSON.parse(responseHeaders) : '');
 		response.send(responseBody);
 
-		await this.logService.logging(request, requestTime, response, mock, responseBody);
+		await this.logService.create(request, requestTime, response, mock, responseBody);
 
 		return response;
 	}
