@@ -1,11 +1,11 @@
-import { Injectable, Req, Res } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
+import { Inject, Injectable, Req, Res } from '@nestjs/common';
 import { LogDto } from './models/log.Dto';
-import { LogModel } from './models/log.model';
+import { Log } from '@prisma/client';
+import { LogRepository } from './Log.repository';
 
 @Injectable()
 export class LogService {
-	constructor(private readonly db: DatabaseService) {}
+	constructor(@Inject('LogRepository') private repository: LogRepository) {}
 
 	async create(
 		@Req() request,
@@ -14,12 +14,12 @@ export class LogService {
 		mock?: MockModel,
 		responseBody?: string
 	): Promise<LogDto> {
-		let log: LogModel = {
+		let logDto: LogDto = {
 			is_matched: mock !== undefined,
 			mock_id: mock?.id,
 			request_info: {
 				method: request.method.toUpperCase(),
-				mock_url: request.url,
+				request_url: request.url,
 				request_body: request.rawBody.toString(),
 				request_headers: JSON.stringify(response.request.raw.headers),
 				request_time: requestTime
@@ -31,20 +31,7 @@ export class LogService {
 			}
 		};
 
-		const logEntity = await this.db.log.create({
-			data: {
-				mock_url: log.request_info.mock_url,
-				method: log.request_info.method,
-				request_body: log.request_info.request_body,
-				request_headers: log.request_info.request_headers,
-				request_time: log.request_info.request_time,
-				response_body: log.response_info.response_body,
-				response_headers: log.response_info.response_headers,
-				response_status: log.response_info.response_status,
-				is_matched: log.is_matched,
-				mock_id: log.mock_id
-			}
-		});
+		const logEntity: Log = await this.repository.insert(logDto);
 
 		const result: LogDto = {
 			id: logEntity.id,
@@ -67,33 +54,10 @@ export class LogService {
 	}
 
 	async getAll(): Promise<LogDto[]> {
-		const logEntities = await this.db.log.findMany();
-
-		const logModels: LogDto[] = [];
-		for (const logEntity of logEntities) {
-			const logModel: LogDto = {
-				id: logEntity.id,
-				is_matched: logEntity.is_matched,
-				request_info: {
-					method: logEntity.method,
-					request_url: logEntity.mock_url,
-					request_body: logEntity.request_body,
-					request_headers: logEntity.request_headers,
-					request_time: logEntity.request_time
-				},
-				response_info: {
-					response_body: logEntity.response_body,
-					response_headers: logEntity.response_headers,
-					response_status: logEntity.response_status
-				}
-			};
-			logModels.push(logModel);
-		}
-
-		return logModels;
+		return this.repository.getAll();
 	}
 
 	async deleteAll() {
-		return this.db.log.deleteMany({});
+		return this.repository.deleteAll();
 	}
 }

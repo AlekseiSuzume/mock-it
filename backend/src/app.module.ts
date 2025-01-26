@@ -5,11 +5,11 @@ import { MockModule } from './mock/mock.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './users/user.module';
+import { LogModule } from './log/log.module';
 import { MockService } from './mock/mock.service';
 import { UserService } from './users/user.service';
-import { UserModule } from './users/user.module';
 import { LogService } from './log/log.service';
-import { LogModule } from './log/log.module';
 
 @Module({
 	imports: [
