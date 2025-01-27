@@ -1,62 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { MockDto } from './models/mock.dto';
-import { DatabaseService } from '../database/database.service';
-import { Mock } from '@prisma/client';
+import { MockRepository } from './mock.repository';
 
 @Injectable()
 export class MockService {
-	constructor(private readonly db: DatabaseService) {}
+	constructor(@Inject('MockRepository') private repository: MockRepository) {}
 
 	async create(mockDto: MockDto): Promise<MockModel> {
-		return this.db.mock.create({
-			data: {
-				name: mockDto.name,
-				url: mockDto.url,
-				status_code: mockDto.status_code,
-				method: mockDto.method,
-				headers: mockDto.headers,
-				body: mockDto.body,
-				body_patterns: mockDto.body_patterns,
-				matcher_type: mockDto.matcher_type,
-				created_by_id: mockDto.created_by_id
-			}
-		});
-	}
-
-	async getAll(): Promise<MockModel[]> {
-		return this.db.mock.findMany();
+		return this.repository.create(mockDto);
 	}
 
 	async getOne(id: number): Promise<MockModel> {
-		return this.db.mock.findFirst({
-			where: {
-				id: id
-			}
-		});
+		return this.repository.getOne(id);
+	}
+
+	async getAll(): Promise<MockModel[]> {
+		return this.repository.getAll();
 	}
 
 	async update(id: number, mockDto: MockDto): Promise<MockModel> {
-		return this.db.mock.update({
-			where: {
-				id: id
-			},
-			data: mockDto
-		});
+		return this.repository.update(id, mockDto);
 	}
 
-	delete(id: number): Promise<MockModel> {
-		return this.db.mock.delete({
-			where: {
-				id: id
-			}
-		});
+	async delete(id: number): Promise<void> {
+		await this.repository.delete(id);
 	}
 
-	findUrl(url: string): Promise<Mock[]> {
-		return this.db.mock.findMany({
-			where: {
-				url: url
-			}
-		});
+	async findUrl(url: string): Promise<MockModel[]> {
+		return this.repository.findByUrl(url);
 	}
 }

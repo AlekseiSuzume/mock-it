@@ -37,7 +37,7 @@ export class MockController {
 
 	@Delete(':id')
 	@ApiOperation({ summary: 'Delete mock by id' })
-	async delete(@Param('id') id: string): Promise<MockModel> {
-		return this.mockService.delete(+id);
+	async delete(@Param('id') id: string): Promise<void> {
+		await this.mockService.delete(+id);
 	}
 }
