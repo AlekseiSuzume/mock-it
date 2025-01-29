@@ -4,6 +4,7 @@ import { LogService } from './log/log.service';
 import { converter } from './utils/Converters';
 import { sleep } from './utils/Sleep';
 import { isValidJSON, isValidXML } from './utils/Validators';
+import { MockEntity } from './mock/models/mock.entity';
 
 @Controller('/')
 export class AppController {
@@ -19,7 +20,7 @@ export class AppController {
 		// Задержка для парсинга request.rawBody
 		await sleep(1);
 
-		let mock: MockModel;
+		let mock: MockEntity;
 		if (isValidJSON(request.rawBody)) {
 			mock = await this.appService.JSONRequestHandler(request);
 		} else if (isValidXML(request.rawBody)) {

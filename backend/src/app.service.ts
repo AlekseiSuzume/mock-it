@@ -1,29 +1,30 @@
 import { Injectable, Req } from '@nestjs/common';
 import { MockService } from './mock/mock.service';
+import { MockEntity } from './mock/models/mock.entity';
 
 @Injectable()
 export class AppService {
 	constructor(private readonly mockService: MockService) {}
 
-	public async textRequestHandler(@Req() request): Promise<MockModel> {
-		const mocks: MockModel[] = await this.findByURL(request);
-		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);
+	public async textRequestHandler(@Req() request): Promise<MockEntity> {
+		const mocks: MockEntity[] = await this.findByURL(request);
+		const mocksMatchMethod: MockEntity[] = await this.filterByMethod(request, mocks);
 
 		return mocksMatchMethod[0];
 	}
 
-	public async XMLRequestHandler(@Req() request): Promise<MockModel> {
-		const mocks: MockModel[] = await this.findByURL(request);
-		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);
+	public async XMLRequestHandler(@Req() request): Promise<MockEntity> {
+		const mocks: MockEntity[] = await this.findByURL(request);
+		const mocksMatchMethod: MockEntity[] = await this.filterByMethod(request, mocks);
 
 		return mocksMatchMethod[0];
 	}
 
-	public async JSONRequestHandler(@Req() request): Promise<MockModel> {
-		const mocks: MockModel[] = await this.findByURL(request);
-		const mocksMatchMethod: MockModel[] = await this.filterByMethod(request, mocks);
+	public async JSONRequestHandler(@Req() request): Promise<MockEntity> {
+		const mocks: MockEntity[] = await this.findByURL(request);
+		const mocksMatchMethod: MockEntity[] = await this.filterByMethod(request, mocks);
 
-		let result: MockModel;
+		let result: MockEntity;
 		mocksMatchMethod.forEach((mock) => {
 			let matcher = mock.matcher_type;
 			switch (matcher) {
@@ -42,6 +43,7 @@ export class AppService {
 			}
 		});
 
+		//TODO добавить проверку на matcher, если есть только ответ с matcher, возвращать 404 при не совпадении
 		if (result === undefined) {
 			result = mocksMatchMethod[0];
 		}
@@ -49,15 +51,15 @@ export class AppService {
 		return result;
 	}
 
-	private async findByURL(@Req() request): Promise<MockModel[]> {
+	private async findByURL(@Req() request): Promise<MockEntity[]> {
 		return await this.mockService.findUrl(request.url);
 	}
 
-	private async filterByMethod(@Req() request, mocks: MockModel[]): Promise<MockModel[]> {
+	private async filterByMethod(@Req() request, mocks: MockEntity[]): Promise<MockEntity[]> {
 		return mocks.filter((mock) => mock.method === request.method);
 	}
 
-	private isMatchKeyToKey(@Req() request, response: MockModel): boolean {
+	private isMatchKeyToKey(@Req() request, response: MockEntity): boolean {
 		const jsonPathReq = response.body_patterns.split(',')[0];
 		const jsonPathRes = response.body_patterns.split(',')[1];
 		const requestBody = JSON.parse(request.rawBody);
@@ -100,7 +102,7 @@ export class AppService {
 		return current;
 	}
 
-	private isMatchKeyToValue(@Req() request, response: MockModel): boolean {
+	private isMatchKeyToValue(@Req() request, response: MockEntity): boolean {
 		const jsonPath = response.body_patterns.split(',')[0];
 		const keys = jsonPath.split('.').map((value) => value.trim());
 		const jsonPathValue = response.body_patterns.split(',')[1].trim();

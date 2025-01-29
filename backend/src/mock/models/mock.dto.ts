@@ -4,6 +4,10 @@ import { ApiPropertyOptional } from '@nestjs/swagger/dist/decorators/api-propert
 import { MatcherType } from '@prisma/client';
 
 export class MockDto {
+	@IsNumber()
+	@IsOptional()
+	@ApiProperty()
+	id: number;
 	@IsString()
 	@IsNotEmpty()
 	@ApiProperty()

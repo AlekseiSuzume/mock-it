@@ -1,15 +1,15 @@
-import { MockDto } from './models/mock.dto';
+import { MockEntity } from './models/mock.entity';
 
 export interface MockRepository {
-	create(mockDto: MockDto): Promise<MockModel>;
+	create(mock: MockEntity): Promise<MockEntity>;
 
-	getOne(id: number): Promise<MockModel>;
+	getOne(id: number): Promise<MockEntity>;
 
-	getAll(): Promise<MockModel[]>;
+	getAll(): Promise<MockEntity[]>;
 
-	update(id: number, mockDto: MockDto): Promise<MockModel>;
+	update(id: number, mockEntity: MockEntity): Promise<MockEntity>;
 
 	delete(id: number): Promise<void>;
 
-	findByUrl(url: string): Promise<MockModel[]>;
+	findByUrl(url: string): Promise<MockEntity[]>;
 }

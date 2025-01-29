@@ -12,26 +12,26 @@ export class MockController {
 
 	@Post()
 	@ApiOperation({ summary: 'Create a new mock' })
-	async create(@Body() mockDto: MockDto): Promise<MockModel> {
+	async create(@Body() mockDto: MockDto): Promise<MockDto> {
 		return await this.mockService.create(mockDto);
 	}
 
 	@Get()
 	@ApiOperation({ summary: 'Get all mocks' })
 	@ApiOkResponse({ isArray: true })
-	async getAll(): Promise<MockModel[]> {
+	async getAll(): Promise<MockDto[]> {
 		return await this.mockService.getAll();
 	}
 
 	@Get(':id')
 	@ApiOperation({ summary: 'Get mock by id' })
-	async getOne(@Param('id') id: string): Promise<MockModel> {
+	async getOne(@Param('id') id: string): Promise<MockDto> {
 		return this.mockService.getOne(+id);
 	}
 
 	@Patch(':id')
 	@ApiOperation({ summary: 'Update mock by id' })
-	async update(@Param('id') id: string, @Body() mockDto: MockDto): Promise<MockModel> {
+	async update(@Param('id') id: string, @Body() mockDto: MockDto): Promise<MockDto> {
 		return this.mockService.update(+id, mockDto);
 	}
 

@@ -3,6 +3,7 @@ import { LogDto } from './models/log.Dto';
 import { LogRepository } from './Log.repository';
 import { LogEntity } from './models/log.entity';
 import LogMapper from './models/log.mapper';
+import { MockEntity } from '../mock/models/mock.entity';
 
 @Injectable()
 export class LogService {
@@ -12,7 +13,7 @@ export class LogService {
 		@Req() request,
 		requestTime: string,
 		@Res() response,
-		mock?: MockModel,
+		mock?: MockEntity,
 		responseBody?: string
 	): Promise<void> {
 		let logDto: LogDto = {

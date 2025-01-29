@@ -53,6 +53,6 @@ export class LogRepositoryImpl implements LogRepository {
 	}
 
 	async deleteAll(): Promise<void> {
-		this.db.log.deleteMany({});
+		await this.db.log.deleteMany({});
 	}
 }
