@@ -13,7 +13,7 @@ export class AppController {
 	) {}
 
 	@All('*')
-	async handleAllRequests(@Req() request, @Res() response): Promise<MockModel> {
+	async handleAllRequests(@Req() request, @Res() response): Promise<any> {
 		const requestTime = converter.toISOString(new Date());
 
 		// Задержка для парсинга request.rawBody

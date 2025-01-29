@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { LogRepository } from './Log.repository';
 import { DatabaseService } from '../database/database.service';
-import { LogDto } from './models/log.Dto';
-import { Log } from '@prisma/client';
+import { LogEntity } from './models/log.entity';
 
 @Injectable()
 export class LogRepositoryImpl implements LogRepository {
 	constructor(private readonly db: DatabaseService) {}
 
-	async insert(log: LogDto): Promise<Log> {
-		return this.db.log.create({
+	async insert(log: LogEntity): Promise<void> {
+		await this.db.log.create({
 			data: {
 				mock_url: log.request_info.request_url,
 				method: log.request_info.method,
@@ -25,31 +24,32 @@ export class LogRepositoryImpl implements LogRepository {
 		});
 	}
 
-	async getAll(): Promise<LogDto[]> {
-		const logEntities = await this.db.log.findMany();
+	async getAll(): Promise<LogEntity[]> {
+		const result = await this.db.log.findMany();
 
-		const logModels: LogDto[] = [];
-		for (const logEntity of logEntities) {
-			const logModel: LogDto = {
-				id: logEntity.id,
-				is_matched: logEntity.is_matched,
+		const logEntities: LogEntity[] = [];
+		for (const item of result) {
+			const entity: LogEntity = {
+				id: item.id,
+				is_matched: item.is_matched,
+				mock_id: item.mock_id,
 				request_info: {
-					method: logEntity.method,
-					request_url: logEntity.mock_url,
-					request_body: logEntity.request_body,
-					request_headers: logEntity.request_headers,
-					request_time: logEntity.request_time
+					method: item.method,
+					request_url: item.mock_url,
+					request_body: item.request_body,
+					request_headers: item.request_headers,
+					request_time: item.request_time
 				},
 				response_info: {
-					response_body: logEntity.response_body,
-					response_headers: logEntity.response_headers,
-					response_status: logEntity.response_status
+					response_body: item.response_body,
+					response_headers: item.response_headers,
+					response_status: item.response_status
 				}
 			};
-			logModels.push(logModel);
+			logEntities.push(entity);
 		}
 
-		return logModels;
+		return logEntities;
 	}
 
 	async deleteAll(): Promise<void> {

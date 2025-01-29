@@ -1,7 +1,8 @@
 import { Inject, Injectable, Req, Res } from '@nestjs/common';
 import { LogDto } from './models/log.Dto';
-import { Log } from '@prisma/client';
 import { LogRepository } from './Log.repository';
+import { LogEntity } from './models/log.entity';
+import LogMapper from './models/log.mapper';
 
 @Injectable()
 export class LogService {
@@ -13,7 +14,7 @@ export class LogService {
 		@Res() response,
 		mock?: MockModel,
 		responseBody?: string
-	): Promise<LogDto> {
+	): Promise<void> {
 		let logDto: LogDto = {
 			is_matched: mock !== undefined,
 			mock_id: mock?.id,
@@ -31,33 +32,16 @@ export class LogService {
 			}
 		};
 
-		const logEntity: Log = await this.repository.insert(logDto);
-
-		const result: LogDto = {
-			id: logEntity.id,
-			is_matched: logEntity.is_matched,
-			request_info: {
-				method: logEntity.method,
-				request_url: logEntity.mock_url,
-				request_body: logEntity.request_body,
-				request_headers: logEntity.request_headers,
-				request_time: logEntity.request_time
-			},
-			response_info: {
-				response_body: logEntity.response_body,
-				response_headers: logEntity.response_headers,
-				response_status: logEntity.response_status
-			}
-		};
-
-		return result;
+		const logEntity: LogEntity = LogMapper.dtoToEntity(logDto);
+		await this.repository.insert(logEntity);
 	}
 
 	async getAll(): Promise<LogDto[]> {
-		return this.repository.getAll();
+		const logEntities: LogEntity[] = await this.repository.getAll();
+		return logEntities.map((entity: LogEntity) => LogMapper.entityToDto(entity));
 	}
 
-	async deleteAll() {
+	async deleteAll(): Promise<void> {
 		return this.repository.deleteAll();
 	}
 }

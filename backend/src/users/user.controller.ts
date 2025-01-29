@@ -1,12 +1,12 @@
 import { Body, Controller, HttpException, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { DtoHelperService } from './dto/dto-helper.service';
 import { IUser } from './user.interface';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserModel, LoginModel } from './models/user.model';
 import { RefreshJwtAuthGuard } from '../auth/jwt-auth.guard';
+import { DtoHelperService } from './models/dto/dto-helper.service';
+import { CreateUserDto } from './models/dto/create-user.dto';
+import { LoginUserDto } from './models/dto/login-user.dto';
 
 @Controller('users')
 @ApiTags('Users')

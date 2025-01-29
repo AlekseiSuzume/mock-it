@@ -1,8 +1,7 @@
-import { LogDto } from './models/log.Dto';
-import { Log } from '@prisma/client';
+import { LogEntity } from './models/log.entity';
 
 export interface LogRepository {
-	insert(log: LogDto): Promise<Log>;
-	getAll(): Promise<LogDto[]>;
+	insert(log: LogEntity): Promise<void>;
+	getAll(): Promise<LogEntity[]>;
 	deleteAll(): Promise<void>;
 }
