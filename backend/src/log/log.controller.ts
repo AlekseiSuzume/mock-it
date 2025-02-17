@@ -2,7 +2,7 @@ import { Controller, Delete, Get, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { LogService } from './log.service';
-import { LogDto } from './models/log.Dto';
+import { LogDto } from './models/log.dto';
 
 @Controller('logs')
 @ApiTags('Logs')

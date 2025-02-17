@@ -65,7 +65,7 @@ export class MockEditComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.selectedItem && changes['selectedItem']) {
-      this.selectedMethod = this.selectedItem.method;
+      this.selectedMethod = this.selectedItem.method ?? 'GET';
       this.selectedMatcherType = this.selectedItem.matcher_type ?? 'NONE';
       this.matcherPattern = this.selectedItem.body_patterns;
       this.bodyInput = this.selectedItem.body;

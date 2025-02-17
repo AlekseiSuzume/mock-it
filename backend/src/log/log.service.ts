@@ -1,5 +1,5 @@
 import { Inject, Injectable, Req, Res } from '@nestjs/common';
-import { LogDto } from './models/log.Dto';
+import { LogDto } from './models/log.dto';
 import { LogRepository } from './Log.repository';
 import { LogEntity } from './models/log.entity';
 import LogMapper from './models/log.mapper';

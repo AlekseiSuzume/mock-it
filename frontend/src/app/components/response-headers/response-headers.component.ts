@@ -27,7 +27,7 @@ export class ResponseHeadersComponent implements OnChanges {
   }
 
   addHeader() {
-    this.headers.push({ key: '', value: '' });
+    this.headers.push({ key: 'content-type',value: 'application/json'});
     this.emitHeaders();
   }
 

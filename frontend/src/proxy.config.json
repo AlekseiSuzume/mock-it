@@ -1,7 +1,7 @@
 {
   "/api/**": {
     "target" : {
-      "host": "localhost",
+      "host": "0.0.0.0",
       "port": 20000,
       "protocol": "http:"
     },
