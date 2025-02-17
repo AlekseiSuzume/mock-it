@@ -45,7 +45,11 @@ export class AppService {
 
 		//TODO добавить проверку на matcher, если есть только ответ с matcher, возвращать 404 при не совпадении
 		if (result === undefined) {
-			result = mocksMatchMethod[0];
+			mocksMatchMethod.forEach((mock) => {
+				if (mock.matcher_type == 'NONE') {
+					result = mock;
+				}
+			});
 		}
 
 		return result;
