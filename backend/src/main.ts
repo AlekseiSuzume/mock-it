@@ -30,8 +30,8 @@ async function bootstrap() {
 
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 	const config = new DocumentBuilder()
-		.setTitle('Mock-It-Easy API')
-		.setDescription('This is the Mock-It-Easy API description')
+		.setTitle('Mock-IT API')
+		.setDescription('This is the Mock-IT API description')
 		.setVersion('0.1')
 		.addServer('http://0.0.0.0:20000')
 		.build();

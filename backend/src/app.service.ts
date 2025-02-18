@@ -125,12 +125,30 @@ export class AppService {
 		let current = obj;
 
 		for (const key of keys) {
-			if (current && key in current) {
-				current = current[key];
+			// Проверяем, содержит ли ключ индекс массива
+			const match = key.match(/^(.+)\[(\d+)\]$/);
+
+			if (match) {
+				// Если ключ содержит индекс массива
+				const arrayKey = match[1]; // Название ключа
+				const index = parseInt(match[2], 10); // Индекс
+
+				// Проверяем, существует ли ключ и является ли он массивом
+				if (current && arrayKey in current && Array.isArray(current[arrayKey])) {
+					current = current[arrayKey][index]; // Получаем элемент массива по индексу
+				} else {
+					return undefined;
+				}
 			} else {
-				return undefined;
+				// Если ключ не содержит индекс массива
+				if (current && key in current) {
+					current = current[key];
+				} else {
+					return undefined;
+				}
 			}
 		}
+
 		return current;
 	}
 }
