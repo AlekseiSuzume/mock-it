@@ -38,4 +38,9 @@ export class MockService {
 		const createResult: MockEntity[] = await this.repository.findByUrl(url);
 		return createResult.map((entity) => MockMapper.entityToDto(entity));
 	}
+
+	async findUrlsStartsWith(url: string): Promise<MockDto[]> {
+		const createResult: MockEntity[] = await this.repository.findUrlsStartsWith(url);
+		return createResult.map((entity) => MockMapper.entityToDto(entity));
+	}
 }

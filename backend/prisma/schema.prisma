@@ -28,6 +28,7 @@ enum MatcherType {
   NONE
   KEY_TO_KEY
   KEY_TO_VALUE
+  QUERY_TO_VALUE
 }
 
 model Log {

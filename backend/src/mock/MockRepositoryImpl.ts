@@ -59,4 +59,14 @@ export class MockRepositoryImpl implements MockRepository {
 			}
 		});
 	}
+
+	async findUrlsStartsWith(url: string): Promise<MockEntity[]> {
+		return this.db.mock.findMany({
+			where: {
+				url: {
+					startsWith: url
+				}
+			}
+		});
+	}
 }

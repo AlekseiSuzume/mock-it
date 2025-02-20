@@ -12,4 +12,6 @@ export interface MockRepository {
 	delete(id: number): Promise<void>;
 
 	findByUrl(url: string): Promise<MockEntity[]>;
+
+	findUrlsStartsWith(url: string): Promise<MockEntity[]>;
 }

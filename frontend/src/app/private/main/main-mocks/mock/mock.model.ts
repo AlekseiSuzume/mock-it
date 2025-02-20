@@ -14,7 +14,8 @@ export interface MockModel {
 export enum MatcherType {
   NONE = 'NONE',
   KEY_TO_KEY = 'KEY_TO_KEY',
-  KEY_TO_VALUE = 'KEY_TO_VALUE'
+  KEY_TO_VALUE = 'KEY_TO_VALUE',
+  QUERY_TO_VALUE = 'QUERY_TO_VALUE'
 }
 
 export enum Methods {

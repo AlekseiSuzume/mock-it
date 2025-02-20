@@ -1,4 +1,4 @@
-import { All, Controller, HttpStatus, Req, Res } from '@nestjs/common';
+import { All, Controller, HttpStatus, Query, Req, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { LogService } from './log/log.service';
 import { converter } from './utils/Converters';
@@ -14,14 +14,18 @@ export class AppController {
 	) {}
 
 	@All('*')
-	async handleAllRequests(@Req() request, @Res() response): Promise<any> {
+	async handleAllRequests(@Req() request, @Query() query, @Res() response): Promise<any> {
 		const requestTime = converter.toISOString(new Date());
+
+		const queryMap = new Map<string, any>(Object.entries(query));
 
 		// Задержка для парсинга request.rawBody
 		await sleep(1);
 
 		let mock: MockEntity;
-		if (isValidJSON(request.rawBody)) {
+		if (Object.keys(query).length !== 0) {
+			mock = await this.appService.queryRequestHandler(request, queryMap);
+		} else if (isValidJSON(request.rawBody)) {
 			mock = await this.appService.JSONRequestHandler(request);
 		} else if (isValidXML(request.rawBody)) {
 			mock = await this.appService.XMLRequestHandler(request);
