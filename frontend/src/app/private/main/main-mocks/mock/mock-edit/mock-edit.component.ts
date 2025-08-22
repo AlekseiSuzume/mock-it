@@ -34,16 +34,16 @@ export class MockEditComponent implements OnChanges, OnDestroy {
   @Output() itemDeletedEventEmitter = new EventEmitter<number>();
 
   mockSubscription!: Subscription;
-  selectedMethod?: string;
+  selectedMethod?: string = "GET";
   selectedMatcherType?: string;
   bodyInput: string = '';
   matcherPattern?: string;
   headers: { key: string, value: string }[] = [];
 
   public fbForm = this._fb.group({
-    name: [this.selectedItem?.name ?? '', [Validators.required]],
-    endpoint: [this.selectedItem?.url ?? '', [Validators.required]],
-    status_code: [this.selectedItem?.status_code.toString() ?? '', [Validators.required]]
+    name: [this.selectedItem?.name ?? 'Example mock name', [Validators.required]],
+    endpoint: [this.selectedItem?.url ?? '/example/endpoint', [Validators.required]],
+    status_code: [this.selectedItem?.status_code.toString() ?? '200', [Validators.required]]
   });
 
   constructor(

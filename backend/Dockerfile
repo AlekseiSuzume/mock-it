@@ -11,6 +11,8 @@ RUN npm ci
 RUN npm run build
 RUN npx prisma generate
 
+RUN apt-get update && apt-get install
+
 EXPOSE 20000
 
 FROM node:22.9.0 AS production

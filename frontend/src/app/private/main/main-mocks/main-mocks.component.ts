@@ -94,9 +94,9 @@ export class MainMocksComponent implements OnInit{
     if (!this.newMock) {
       this.newMock = {
         body: 'Example mock body',
-        url: `/test/${this.mocks[0].id! + 1}`,
+        url: `/test/${this.mocks[0].id ? this.mocks[0].id + 1 : 1}`,
         method: 'GET',
-        name: `Example mock name ${this.mocks[0].id! + 1}`,
+        name: `Example mock name ${this.mocks[0].id ? this.mocks[0].id + 1 : 1}`,
         status_code: 200
       };
       this.mocks.unshift(this.newMock);
